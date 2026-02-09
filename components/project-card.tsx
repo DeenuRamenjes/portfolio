@@ -1,86 +1,124 @@
 "use client";
 
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, MotionValue, useTransform } from "framer-motion";
 import { Card } from "@/components/ui/card";
-import { useRef } from "react";
+import Link from "next/link";
 
 interface ProjectCardProps {
   title: string;
   description: string;
+  slug: string;
   index: number;
+  scrollYProgress: MotionValue<number>;
+  total: number;
 }
 
-export function ProjectCard({ title, description, index }: ProjectCardProps) {
-  const cardRef = useRef<HTMLDivElement>(null);
-  const isEven = index % 2 === 0;
-  
-  const { scrollYProgress } = useScroll({
-    target: cardRef,
-    offset: ["start end", "center center"],
-  });
+export function ProjectCard({
+  title,
+  description,
+  slug,
+  index,
+  scrollYProgress,
+  total
+}: ProjectCardProps) {
+  // Calculate individual step with overlap to prevent "dead zones"
+  const step = 1 / total;
+  // Overlap by 20% of the step size to ensure visual handoff
+  const overlap = step * 0.2;
+  const start = Math.max(0, index * step - overlap);
+  const end = Math.min(1, (index + 1) * step + overlap);
 
-  // 3D Flip animation - rotates on both X and Y axes for cinematic depth
-  const rotateX = useTransform(scrollYProgress, [0, 0.5, 1], [25, 0, 0]);
-  const rotateY = useTransform(
-    scrollYProgress, 
-    [0, 0.5, 1], 
-    [isEven ? -15 : 15, 0, 0]
-  );
-  const opacity = useTransform(scrollYProgress, [0, 0.3, 1], [0, 1, 1]);
-  const scale = useTransform(scrollYProgress, [0, 0.5, 1], [0.85, 1, 1]);
-  const z = useTransform(scrollYProgress, [0, 0.5, 1], [-100, 0, 0]);
+  const dwellStart = index * step + step * 0.2;
+  const dwellEnd = index * step + step * 0.8;
+  const range = [start, dwellStart, dwellEnd, end];
+
+  // Sustain focus values (0 rotation, 1 scale) during the dwell phase
+  const rotateX = useTransform(scrollYProgress, range, [-45, 0, 0, 45]);
+  const scale = useTransform(scrollYProgress, range, [0.85, 1, 1, 0.85]);
+
+  // Specific opacity logic for Card 0 to be visible at the start
+  const initialOpacity = index === 0 ? 1 : 0;
+  const opacity = useTransform(scrollYProgress, [start, dwellStart, dwellEnd, end], [initialOpacity, 1, 1, 0]);
+
+  // Tighter vertical travel to keep large cards centered
+  const y = useTransform(scrollYProgress, range, ["30vh", "0vh", "0vh", "-30vh"]);
+  const translateZ = useTransform(scrollYProgress, range, [-150, 0, 0, -150]);
 
   return (
     <motion.div
-      ref={cardRef}
       style={{
         rotateX,
-        rotateY,
-        opacity,
         scale,
-        z,
-        transformPerspective: 1200,
+        opacity,
+        y,
+        translateZ,
+        // Removed transformPerspective as it competes with parent perspective
         transformStyle: "preserve-3d",
+        position: "absolute",
+        zIndex: total - index,
       }}
-      className="will-animate"
+      className="relative w-[100vw] md:w-full max-w-7xl min-h-[500px] md:aspect-[21/9] will-change-transform"
     >
-      <Card className="group relative overflow-hidden bg-card/50 backdrop-blur-sm border-white/10 hover:border-white/20 transition-all duration-500">
-        <motion.div
-          whileHover={{ scale: 1.05 }}
-          transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-          className="aspect-video bg-gradient-to-br from-[var(--accent-blue)]/30 to-[var(--accent-purple)]/30 relative overflow-hidden"
-        >
-          {/* Image Placeholder */}
-          <div className="absolute inset-0 flex items-center justify-center">
-            <span className="text-6xl opacity-30">◆</span>
-          </div>
-          
-          {/* Hover Overlay */}
-          <motion.div
-            className="absolute inset-0 bg-gradient-to-br from-[var(--accent-blue)]/40 to-[var(--accent-purple)]/40"
-            initial={{ opacity: 0 }}
-            whileHover={{ opacity: 1 }}
-            transition={{ duration: 0.3 }}
-          />
-        </motion.div>
+      <Card className="group relative w-full h-full overflow-hidden bg-zinc-900/40 backdrop-blur-3xl border-white/5 shadow-[0_50px_100px_rgba(0,0,0,0.8)] border flex flex-col md:flex-row">
 
-        <div className="p-6 md:p-8">
-          <motion.h3
-            className="text-2xl md:text-3xl font-heading font-bold mb-3 group-hover:translate-x-2 transition-transform duration-300"
-          >
-            {title}
-          </motion.h3>
-          <p className="text-foreground/60 leading-relaxed">{description}</p>
+        {/* Visual Layer - Shorter on mobile */}
+        <div className="relative w-full md:flex-1 h-48 md:h-full bg-[#080808] overflow-hidden">
+          <div className="absolute inset-0 flex items-center justify-center opacity-10">
+            <span className="text-[15rem] md:text-[25rem] font-bold select-none font-heading leading-none text-white italic">
+              0{index + 1}
+            </span>
+          </div>
+
+          <div className="absolute inset-0 bg-gradient-to-br from-white/5 via-transparent to-black/40 pointer-events-none" />
+          <div className="absolute -bottom-1/2 -left-1/4 w-full h-full bg-[var(--accent-blue)]/5 blur-[120px] rounded-full" />
         </div>
 
-        {/* Glow Effect on Hover */}
-        <motion.div
-          className="absolute -inset-1 bg-gradient-to-r from-[var(--accent-blue)] to-[var(--accent-purple)] rounded-lg blur-xl -z-10"
-          initial={{ opacity: 0 }}
-          whileHover={{ opacity: 0.2 }}
-          transition={{ duration: 0.3 }}
-        />
+        {/* Content Layer */}
+        <div className="flex-1 p-8 md:p-20 flex flex-col justify-center border-t md:border-t-0 md:border-l border-white/5 bg-zinc-950/20 relative z-10">
+          <div className="space-y-6 md:space-y-8">
+            <div className="space-y-4">
+              <div className="inline-flex items-center gap-4 px-4 py-1.5 rounded-full border border-white/5 bg-white/5">
+                <span className="w-1.5 h-1.5 rounded-full bg-[var(--accent-blue)]" />
+                <span className="text-[9px] font-bold tracking-[0.5em] text-white/30 uppercase">Selected 0{index + 1}</span>
+              </div>
+
+              <h3 className="text-4xl md:text-7xl font-heading font-black tracking-tighter text-white leading-[0.85] py-2">
+                {title.split(' ')[0]} <br />
+                <span className="text-white/30">{title.split(' ').slice(1).join(' ')}</span>
+              </h3>
+            </div>
+
+            <p className="text-lg md:text-2xl text-white/40 leading-relaxed font-light max-w-md">
+              {description}
+            </p>
+
+            <div className="pt-4 md:pt-6">
+              <Link
+                href={`/projects/${slug}`}
+                className="group/btn inline-flex relative px-10 py-5 rounded-sm bg-white text-black font-black tracking-tight text-lg transition-all duration-300 hover:bg-[var(--accent-blue)] hover:text-white overflow-hidden"
+              >
+                <span className="relative z-10">Explore Case</span>
+                <div className="absolute inset-0 bg-black/10 translate-y-full group-hover/btn:translate-y-0 transition-transform duration-500" />
+              </Link>
+            </div>
+          </div>
+        </div>
+
+        {/* Glass Overlay */}
+        <div className="absolute inset-0 pointer-events-none bg-gradient-to-tr from-white/5 to-transparent z-20 opacity-30" />
       </Card>
+
+      {/* Grounding Shadow */}
+      <div className="absolute inset-x-8 -bottom-12 h-20 bg-black/60 blur-3xl pointer-events-none -z-10 rounded-full scale-x-90" />
+
+      {/* Scroll Dwell Status */}
+      <motion.div
+        style={{ opacity: useTransform(scrollYProgress, [dwellStart - 0.05, dwellStart, dwellEnd, dwellEnd + 0.05], [0, 1, 1, 0]) }}
+        className="absolute -bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
+      >
+        <div className="w-px h-12 bg-gradient-to-b from-white/20 to-transparent" />
+        <span className="text-[8px] font-bold tracking-[0.5em] text-white/20 uppercase">In-View</span>
+      </motion.div>
     </motion.div>
   );
 }

@@ -2,25 +2,28 @@
 
 import { motion } from "framer-motion";
 import { scaleIn } from "@/lib/animation-variants";
+import React, { useRef } from "react";
+import { GlobalSpotlight, ParticleCard } from "../MagicBento";
 
 const skills = [
+  "JavaScript",
+  "HTML5",
+  "CSS",
   "React",
-  "Next.js",
-  "TypeScript",
-  "Node.js",
-  "Tailwind CSS",
-  "Framer Motion",
-  "GSAP",
-  "PostgreSQL",
+  "Github",
+  "Angular",
   "MongoDB",
-  "Docker",
-  "AWS",
-  "GraphQL",
+  "Tailwind",
+  "Node.js",
+  "Express",
+  "React Native",
 ];
 
 export function Skills() {
+  const gridRef = useRef<HTMLDivElement>(null);
+
   return (
-    <div>
+    <div className="relative">
       <motion.h2
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -31,33 +34,62 @@ export function Skills() {
         Skills & Technologies
       </motion.h2>
 
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
+      {/* Global Spotlight for mouse tracking */}
+      <GlobalSpotlight gridRef={gridRef} />
+
+      {/* Grid Container */}
+      <div
+        ref={gridRef}
+        className="bento-section grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6"
+      >
+        <style>
+          {`
+          .bento-section {
+            --glow-x: 50%;
+            --glow-y: 50%;
+            --glow-intensity: 0;
+            --glow-radius: 330px;
+            --glow-color: 34, 211, 238;
+          }
+           .card--border-glow::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            padding: 2px;
+            background: radial-gradient(var(--glow-radius) circle at var(--glow-x) var(--glow-y),
+                rgba(var(--glow-color), calc(var(--glow-intensity) * 0.8)) 0%,
+                rgba(var(--glow-color), calc(var(--glow-intensity) * 0.4)) 30%,
+                transparent 60%);
+            border-radius: inherit;
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask-composite: exclude;
+            pointer-events: none;
+            opacity: 1;
+            transition: opacity 0.3s ease;
+            z-index: 1;
+          }
+        `}
+        </style>
+
         {skills.map((skill, index) => (
-          <motion.div
+          <ParticleCard
             key={skill}
-            custom={index}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={scaleIn}
-            transition={{ delay: index * 0.05 }}
-            whileHover={{ scale: 1.05, y: -4 }}
-            className="relative group"
+            className="card card--border-glow relative p-6 md:p-8 rounded-xl bg-white/5 border border-white/5 overflow-hidden group flex items-center justify-center min-h-[120px]"
+            particleCount={8}
+            glowColor="34, 211, 238"
+            enableTilt
+            enableMagnetism
+            style={{
+              // @ts-ignore
+              "--glow-intensity": 0
+            }}
           >
-            <div className="p-6 md:p-8 rounded-xl bg-card/30 backdrop-blur-sm border border-white/10 hover:border-white/20 transition-all duration-300">
-              <p className="text-center font-medium text-foreground/80 group-hover:text-foreground transition-colors">
-                {skill}
-              </p>
-            </div>
-            
-            {/* Glow effect */}
-            <motion.div
-              className="absolute -inset-1 bg-gradient-to-r from-[var(--accent-blue)] to-[var(--accent-purple)] rounded-xl blur-lg -z-10"
-              initial={{ opacity: 0 }}
-              whileHover={{ opacity: 0.15 }}
-              transition={{ duration: 0.3 }}
-            />
-          </motion.div>
+            <p className="font-medium text-foreground/80 group-hover:text-foreground transition-colors relative z-10 text-center">
+              {skill}
+            </p>
+          </ParticleCard>
         ))}
       </div>
     </div>

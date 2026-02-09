@@ -5,19 +5,16 @@ import { slideInLeft, slideInRight } from "@/lib/animation-variants";
 
 const experiences = [
   {
-    date: "2023 - Present",
-    title: "Senior Developer",
-    description: "Leading frontend development and architecture decisions.",
+    date: "Mar 2025 - May 2025",
+    title: "Full Stack Developer Intern",
+    company: "Quantzi Infotech",
+    description: "Worked on real-time backend projects, implementing scalable server-side logic and RESTful APIs using Node.js and Express.js. Collaborated with teams to debug and improve system reliability.",
   },
   {
-    date: "2021 - 2023",
-    title: "Full Stack Developer",
-    description: "Built scalable web applications with modern technologies.",
-  },
-  {
-    date: "2019 - 2021",
-    title: "Frontend Developer",
-    description: "Created responsive and accessible user interfaces.",
+    date: "Jun 2024 - July 2024",
+    title: "Frontend Development Intern",
+    company: "Srishti Innovative",
+    description: "Developed the user interface for an e-commerce website using React. Collaborated with senior developers to implement responsive, user-friendly layouts with Material-UI.",
   },
 ];
 
@@ -41,7 +38,7 @@ export function Experience() {
         <div className="space-y-12 md:space-y-20">
           {experiences.map((exp, index) => {
             const isEven = index % 2 === 0;
-            
+
             return (
               <motion.div
                 key={index}
@@ -49,9 +46,8 @@ export function Experience() {
                 whileInView="visible"
                 viewport={{ once: true }}
                 variants={isEven ? slideInLeft : slideInRight}
-                className={`relative flex ${
-                  isEven ? "md:flex-row" : "md:flex-row-reverse"
-                } items-center gap-8`}
+                className={`relative flex ${isEven ? "md:flex-row" : "md:flex-row-reverse"
+                  } items-center gap-8`}
               >
                 {/* Timeline Dot */}
                 <div className="absolute left-0 md:left-1/2 w-4 h-4 -ml-[7px] md:-ml-[7px] rounded-full bg-gradient-to-r from-[var(--accent-blue)] to-[var(--accent-purple)] shadow-lg shadow-[var(--accent-blue)]/50" />
@@ -66,9 +62,12 @@ export function Experience() {
                     <p className="text-sm text-[var(--accent-blue)] font-medium mb-2">
                       {exp.date}
                     </p>
-                    <h3 className="text-2xl md:text-3xl font-heading font-bold mb-3">
+                    <h3 className="text-xl md:text-2xl font-heading font-bold mb-1">
                       {exp.title}
                     </h3>
+                    <p className="text-base text-foreground/80 font-medium mb-3">
+                      {exp.company}
+                    </p>
                     <p className="text-foreground/60 leading-relaxed">
                       {exp.description}
                     </p>

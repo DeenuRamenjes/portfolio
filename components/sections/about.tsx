@@ -6,7 +6,7 @@ import { GlareHover } from "@/components/ui/glare-card";
 import Image from "next/image";
 
 export function About() {
-  const words = "I create exceptional digital experiences that combine beautiful design with powerful functionality. With a focus on modern web technologies and user-centric approach.".split(" ");
+  const words = "Specializing in React, Next.js, and dynamic UI/UX, I design and build seamless digital experiences with smooth animations, real-time interactions, and optimized performance. Let's turn ideas into reality.".split(" ");
 
   return (
     <div className="grid md:grid-cols-2 gap-12 md:gap-20 items-center">
@@ -18,7 +18,7 @@ export function About() {
           transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
           className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold mb-8"
         >
-          About
+          About Me
         </motion.h2>
 
         <motion.div

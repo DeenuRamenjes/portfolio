@@ -4,56 +4,68 @@ import { motion } from "framer-motion";
 import { heroTextLine } from "@/lib/animation-variants";
 import { Button } from "@/components/ui/button";
 import { ShinyText } from "@/components/ui/shiny-text";
+import { AnimatedBackground } from "@/components/ui/animated-background";
+import { Typewriter } from "@/components/ui/typewriter";
 
-const heroLines = [
-  "Creative Developer",
-  "Building Digital",
-  "Experiences",
-];
 
 export function Hero() {
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Background Gradient Orb */}
-      <motion.div
-        className="absolute top-1/4 -right-1/4 w-96 h-96 md:w-[600px] md:h-[600px] rounded-full blur-3xl opacity-20"
-        style={{
-          background: "radial-gradient(circle, var(--accent-blue) 0%, var(--accent-purple) 50%, transparent 70%)",
-        }}
-        animate={{
-          scale: [1, 1.2, 1],
-          opacity: [0.2, 0.3, 0.2],
-        }}
-        transition={{
-          duration: 8,
-          repeat: Infinity,
-          ease: "easeInOut",
-        }}
-      />
+      <AnimatedBackground />
 
       <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-12 py-32">
         <div className="space-y-6">
-          {/* Staggered Hero Text */}
-          {heroLines.map((line, index) => (
+
+          {/* Custom Hero Text Rendering */}
+          <motion.div
+            initial="hidden"
+            animate="visible"
+            variants={heroTextLine}
+            className="font-heading font-bold tracking-tight leading-[1.1]"
+          >
+            {/* Line 1 */}
             <motion.h1
-              key={index}
-              custom={index}
-              initial="hidden"
-              animate="visible"
+              custom={0}
               variants={heroTextLine}
-              className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-heading font-bold tracking-tight leading-[1.1]"
+              className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl"
+            >
+              <span className="text-foreground/80">Hi, I&apos;m </span>
+              <span className="bg-clip-text text-transparent bg-gradient-to-br from-[var(--accent-blue)] to-[var(--accent-purple)]">
+                M S Deenu Ramenjes
+              </span>
+            </motion.h1>
+
+            {/* Line 2 */}
+            <motion.h1
+              custom={1}
+              variants={heroTextLine}
+              className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl mt-2"
             >
               <ShinyText
-                text={line}
+                text="a passionate"
                 speed={2}
-                delay={index * 0.01}
+                delay={0.1}
                 color="#d1d5db"
                 shineColor="#ffffff"
                 spread={90}
                 direction="left"
               />
             </motion.h1>
-          ))}
+
+            {/* Line 3 */}
+            <motion.h1
+              custom={2}
+              variants={heroTextLine}
+              className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl mt-2"
+            >
+              <Typewriter
+                words={["Full-Stack Developer", "Mobile Developer", "UI/UX Engineer"]}
+                delay={3000}
+                className="text-foreground"
+                cursorClassName="bg-[var(--accent-blue)]"
+              />
+            </motion.h1>
+          </motion.div>
 
           {/* Subtitle */}
           <motion.p
@@ -62,8 +74,7 @@ export function Hero() {
             transition={{ delay: 0.5, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
             className="text-lg md:text-xl text-foreground/60 max-w-2xl pt-4"
           >
-            Crafting premium web experiences with modern technologies and
-            attention to detail.
+            Crafting High-Performance, User-Centric Applications
           </motion.p>
 
           {/* CTA Button */}

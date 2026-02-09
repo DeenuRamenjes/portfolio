@@ -1,6 +1,7 @@
 "use client";
 
 import { ReactNode, useEffect, useRef } from "react";
+import { usePathname } from "next/navigation";
 import Lenis from "lenis";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -16,11 +17,12 @@ interface SmoothScrollProviderProps {
 
 export function SmoothScrollProvider({ children }: SmoothScrollProviderProps) {
   const lenisRef = useRef<Lenis | null>(null);
+  const pathname = usePathname();
 
   useEffect(() => {
     // Detect if mobile device
-    const isMobile = window.innerWidth < 768;
-    
+    const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
+
     // Initialize Lenis
     const lenis = new Lenis({
       duration: 1.2,
@@ -59,6 +61,33 @@ export function SmoothScrollProvider({ children }: SmoothScrollProviderProps) {
       ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
     };
   }, []);
+
+  // Aggressive update on route change to prevent height ghosting
+  useEffect(() => {
+    if (lenisRef.current) {
+      const timer1 = setTimeout(() => {
+        lenisRef.current?.resize();
+        ScrollTrigger.refresh();
+      }, 100);
+
+      const timer2 = setTimeout(() => {
+        lenisRef.current?.resize();
+        ScrollTrigger.refresh();
+        window.dispatchEvent(new Event('resize'));
+      }, 500);
+
+      const timer3 = setTimeout(() => {
+        lenisRef.current?.resize();
+        ScrollTrigger.refresh();
+      }, 1200);
+
+      return () => {
+        clearTimeout(timer1);
+        clearTimeout(timer2);
+        clearTimeout(timer3);
+      };
+    }
+  }, [pathname]);
 
   return <>{children}</>;
 }

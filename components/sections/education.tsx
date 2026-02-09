@@ -6,24 +6,31 @@ import { staggerContainer, staggerItem } from "@/lib/animation-variants";
 
 const educationData = [
   {
-    degree: "Bachelor's Degree",
-    field: "Computer Science",
-    institution: "University Name",
-    year: "2020 - 2024",
-    description: "Focused on software engineering, algorithms, and web development.",
+    degree: "B.Tech Information Technology",
+    field: "Information Technology",
+    institution: "CSI Institute of Technology, Kanyakumari",
+    year: "2025",
+    description: "Focused on full-stack development, database management, and software engineering principles.",
   },
   {
-    degree: "High School Diploma",
-    field: "Science & Mathematics",
-    institution: "School Name",
-    year: "2018 - 2020",
-    description: "Specialized in mathematics and computer science fundamentals.",
+    degree: "Class XII",
+    field: "Computer Science",
+    institution: "Ruben Matric Hr Sec School",
+    year: "2021",
+    description: "specialized in Computer Science, Mathematics, Physics, and Chemistry.",
+  },
+  {
+    degree: "Class X",
+    field: "General",
+    institution: "Ruben Matric Hr Sec School",
+    year: "2019",
+    description: "Completed secondary education with a focus on fundamental sciences.",
   },
 ];
 
 export function Education() {
   const containerRef = useRef<HTMLDivElement>(null);
-  
+
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start end", "end start"],
@@ -70,7 +77,7 @@ interface EducationCardProps {
 
 function EducationCard({ degree, field, institution, year, description, index }: EducationCardProps) {
   const cardRef = useRef<HTMLDivElement>(null);
-  
+
   const { scrollYProgress } = useScroll({
     target: cardRef,
     offset: ["start end", "end start"],
@@ -79,8 +86,8 @@ function EducationCard({ degree, field, institution, year, description, index }:
   const scale = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [0.95, 1, 1, 0.98]);
   const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0.9]);
   const x = useTransform(
-    scrollYProgress, 
-    [0, 0.3], 
+    scrollYProgress,
+    [0, 0.3],
     [index % 2 === 0 ? -40 : 40, 0]
   );
 
@@ -97,7 +104,7 @@ function EducationCard({ degree, field, institution, year, description, index }:
       >
         {/* Gradient accent line */}
         <div className="absolute left-0 top-6 bottom-6 w-1 rounded-full bg-gradient-to-b from-[var(--accent-blue)] to-[var(--accent-purple)] opacity-50 group-hover:opacity-100 transition-opacity duration-300" />
-        
+
         <div className="pl-4 md:pl-6">
           {/* Year badge */}
           <motion.span
@@ -120,7 +127,7 @@ function EducationCard({ degree, field, institution, year, description, index }:
           >
             {degree}
           </motion.h3>
-          
+
           <motion.p
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
