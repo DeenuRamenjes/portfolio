@@ -67,7 +67,7 @@ export function Contact() {
         </motion.a>
 
         <motion.a
-          href="#"
+          href="https://drive.usercontent.google.com/u/0/uc?id=1udbI7FRIRk7V2pZr6Fhgcb-PBsZURx_R&export=download"
           whileHover={{ scale: 1.05, y: -2 }}
           transition={{ duration: 0.2 }}
         >
