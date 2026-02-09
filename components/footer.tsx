@@ -5,8 +5,8 @@ import { motion } from "framer-motion";
 export function Footer() {
   return (
     <footer className="relative py-12 border-t border-white/10">
-      <div className="max-w-7xl mx-auto px-6 md:px-12">
-        <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+      <div className="max-w-full mx-auto px-6 md:px-12">
+        <div className="flex flex-col md:flex-row justify-center items-center gap-4">
           <motion.p
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
@@ -16,7 +16,7 @@ export function Footer() {
           >
             © {new Date().getFullYear()} Portfolio. All rights reserved.
           </motion.p>
-
+          {/* 
           <motion.div
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
@@ -36,7 +36,7 @@ export function Footer() {
                 <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-foreground group-hover:w-full transition-all duration-200" />
               </motion.a>
             ))}
-          </motion.div>
+          </motion.div> */}
         </div>
 
         {/* Back to Top */}

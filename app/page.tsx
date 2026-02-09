@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import PillNav from "@/components/PillNav";
 import { Hero } from "@/components/sections/hero";
 import { About } from "@/components/sections/about";
@@ -17,12 +17,20 @@ import { Location } from "@/components/sections/location";
 import { Marquee } from "@/components/ui/marquee";
 import { SplashScreen } from "@/components/ui/splash-screen";
 
+// Module-level variable to track splash state across client-side navigations
+let hasShownSplash = false;
+
 export default function Home() {
-  const [showSplash, setShowSplash] = useState(true);
+  const [showSplash, setShowSplash] = useState(!hasShownSplash);
+
+  const handleSplashComplete = () => {
+    setShowSplash(false);
+    hasShownSplash = true;
+  };
 
   return (
     <>
-      {showSplash && <SplashScreen onComplete={() => setShowSplash(false)} />}
+      {showSplash && <SplashScreen onComplete={handleSplashComplete} />}
 
       <div className={`relative transition-opacity duration-1000 ${showSplash ? 'opacity-0' : 'opacity-100'}`}>
         <ScrollProgress />
@@ -53,10 +61,9 @@ export default function Home() {
         <div className="py-12 bg-background/50 backdrop-blur-sm border-y border-white/5">
           <Marquee
             items={[
-              "Performant", "Accessible", "Reliable", "Scalable", "Maintainable", "Secure",
-              "Collaborative", "Adaptable", "Innovative", "Effective", "User Friendly",
-              "Efficient", "Streamlined", "Dynamic", "Progressive", "Optimized", "Flexible",
-              "Responsive", "Intuitive", "Sustainable", "High Performance", "Robust", "Resilient"
+              "Performant", "Reliable", "Scalable", "Maintainable", "Secure",
+              "Collaborative", "Adaptable", "Effective", "User Friendly",
+              "Dynamic", "Optimized", "Flexible", "Responsive", "High Performance"
             ]}
             speed={100}
           />
@@ -78,9 +85,9 @@ export default function Home() {
         <SectionWrapper id="beyond-code">
           <BeyondTheCode />
         </SectionWrapper>
-        <SectionWrapper id="location">
+        {/* <SectionWrapper id="location">
           <Location />
-        </SectionWrapper>
+        </SectionWrapper> */}
         <SectionWrapper id="contact">
           <Contact />
         </SectionWrapper>

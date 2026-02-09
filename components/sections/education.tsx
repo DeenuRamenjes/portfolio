@@ -8,23 +8,16 @@ const educationData = [
   {
     degree: "B.Tech Information Technology",
     field: "Information Technology",
-    institution: "CSI Institute of Technology, Kanyakumari",
+    institution: "CSI Institute of Technology, Thovali",
     year: "2025",
-    description: "Focused on full-stack development, database management, and software engineering principles.",
+    description: "",
   },
   {
-    degree: "Class XII",
-    field: "Computer Science",
-    institution: "Ruben Matric Hr Sec School",
-    year: "2021",
-    description: "specialized in Computer Science, Mathematics, Physics, and Chemistry.",
-  },
-  {
-    degree: "Class X",
-    field: "General",
-    institution: "Ruben Matric Hr Sec School",
-    year: "2019",
-    description: "Completed secondary education with a focus on fundamental sciences.",
+    degree: "MEAN Stack Development Course",
+    field: "Networkz Systems",
+    institution: "",
+    year: "2025",
+    description: "",
   },
 ];
 

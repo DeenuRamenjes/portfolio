@@ -48,7 +48,7 @@ export function Contact() {
         className="flex flex-col sm:flex-row gap-4 justify-center items-center"
       >
         <motion.a
-          href="mailto:hello@example.com"
+          href="mailto:deenuramenjes29@gmail.com"
           whileHover={{ scale: 1.05, y: -2 }}
           transition={{ duration: 0.2 }}
         >
@@ -89,15 +89,21 @@ export function Contact() {
         transition={{ delay: 0.7, duration: 0.8 }}
         className="mt-16 flex gap-6 justify-center"
       >
-        {["GitHub", "LinkedIn", "Twitter"].map((social, index) => (
+        {[
+          { name: "GitHub", url: "https://github.com/DeenuRamenjes" },
+          { name: "LinkedIn", url: "https://www.linkedin.com/in/deenu-ramenjes-ms-b49902336" },
+          { name: "WhatsApp", url: "https://wa.me/9787134487" },
+        ].map((social, index) => (
           <motion.a
-            key={social}
-            href="#"
+            key={social.name}
+            href={social.url}
+            target="_blank"
+            rel="noopener noreferrer"
             className="text-foreground/60 hover:text-foreground transition-colors relative group"
             whileHover={{ y: -2 }}
             transition={{ delay: index * 0.05, duration: 0.2 }}
           >
-            {social}
+            {social.name}
             <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-gradient-to-r from-[var(--accent-blue)] to-[var(--accent-purple)] group-hover:w-full transition-all duration-300" />
           </motion.a>
         ))}

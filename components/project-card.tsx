@@ -8,6 +8,8 @@ interface ProjectCardProps {
   title: string;
   description: string;
   slug: string;
+  image: string;
+  status?: string;
   index: number;
   scrollYProgress: MotionValue<number>;
   total: number;
@@ -17,6 +19,8 @@ export function ProjectCard({
   title,
   description,
   slug,
+  image,
+  status,
   index,
   scrollYProgress,
   total
@@ -62,24 +66,38 @@ export function ProjectCard({
       <Card className="group relative w-full h-full overflow-hidden bg-zinc-900/40 backdrop-blur-3xl border-white/5 shadow-[0_50px_100px_rgba(0,0,0,0.8)] border flex flex-col md:flex-row">
 
         {/* Visual Layer - Shorter on mobile */}
-        <div className="relative w-full md:flex-1 h-48 md:h-full bg-[#080808] overflow-hidden">
-          <div className="absolute inset-0 flex items-center justify-center opacity-10">
+        <div className="relative w-full md:flex-1 h-48 md:h-full bg-[#080808] overflow-hidden transition-all duration-700 ease-out">
+          {/* Background Image */}
+          <div
+            className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-90 transition-opacity duration-700"
+            style={{ backgroundImage: `url(${image})` }}
+          />
+
+          <div className="absolute inset-0 flex items-center justify-center opacity-10 mix-blend-overlay">
             <span className="text-[15rem] md:text-[25rem] font-bold select-none font-heading leading-none text-white italic">
               0{index + 1}
             </span>
           </div>
 
-          <div className="absolute inset-0 bg-gradient-to-br from-white/5 via-transparent to-black/40 pointer-events-none" />
-          <div className="absolute -bottom-1/2 -left-1/4 w-full h-full bg-[var(--accent-blue)]/5 blur-[120px] rounded-full" />
+          {/* <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-transparent to-transparent pointer-events-none" /> */}
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/80 pointer-events-none" />
         </div>
 
         {/* Content Layer */}
         <div className="flex-1 p-8 md:p-20 flex flex-col justify-center border-t md:border-t-0 md:border-l border-white/5 bg-zinc-950/20 relative z-10">
           <div className="space-y-6 md:space-y-8">
             <div className="space-y-4">
-              <div className="inline-flex items-center gap-4 px-4 py-1.5 rounded-full border border-white/5 bg-white/5">
-                <span className="w-1.5 h-1.5 rounded-full bg-[var(--accent-blue)]" />
-                <span className="text-[9px] font-bold tracking-[0.5em] text-white/30 uppercase">Selected 0{index + 1}</span>
+              <div className="flex flex-wrap items-center gap-3">
+                <div className="inline-flex items-center gap-4 px-4 py-1.5 rounded-full border border-white/5 bg-white/5">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[var(--accent-blue)]" />
+                  <span className="text-[9px] font-bold tracking-[0.5em] text-white/30 uppercase">Selected 0{index + 1}</span>
+                </div>
+                {status && (
+                  <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-yellow-500/20 bg-yellow-500/10 text-yellow-500">
+                    <span className="w-1.5 h-1.5 rounded-full bg-yellow-500 animate-pulse" />
+                    <span className="text-[9px] font-bold tracking-[0.2em] uppercase">{status}</span>
+                  </div>
+                )}
               </div>
 
               <h3 className="text-4xl md:text-7xl font-heading font-black tracking-tighter text-white leading-[0.85] py-2">

@@ -6,16 +6,17 @@ import React, { useRef } from "react";
 import { GlobalSpotlight, ParticleCard } from "../MagicBento";
 
 const skills = [
-  "JavaScript",
   "HTML5",
   "CSS",
+  "JavaScript",
+  "Prompt Engineering",
   "React",
   "Github",
-  "Angular",
+  "AWS",
   "MongoDB",
-  "Tailwind",
+  "Tailwind CSS",
   "Node.js",
-  "Express",
+  "Next.js",
   "React Native",
 ];
 

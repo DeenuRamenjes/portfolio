@@ -59,11 +59,17 @@ export default function ProjectDetailPage() {
                         initial={{ opacity: 0, y: 30 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-                        className="mb-8"
+                        className="mb-8 flex flex-col items-center gap-4"
                     >
                         <span className="text-[10px] font-black tracking-[0.8em] uppercase text-white/30 border-b border-white/10 pb-2">
                             Project No. 0{projects.indexOf(project) + 1}
                         </span>
+                        {project.status && (
+                            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-yellow-500/20 bg-yellow-500/10 text-yellow-500">
+                                <span className="w-1.5 h-1.5 rounded-full bg-yellow-500 animate-pulse" />
+                                <span className="text-[9px] font-bold tracking-[0.2em] uppercase">{project.status}</span>
+                            </div>
+                        )}
                     </motion.div>
 
                     <motion.h1
@@ -122,7 +128,7 @@ export default function ProjectDetailPage() {
                         <motion.div style={{ opacity: metaOpacity, y: metaY, filter: metaFilter }} className="space-y-12">
                             <MetaGroup label="Deliverable" value={project.year} delay={0} />
                             <MetaGroup label="Role" value={project.role} delay={0.1} />
-                            <MetaGroup label="Stack" value={project.technologies.join(" • ")} delay={0.2} />
+                            <MetaGroup label="Stack" value={project.technologies} delay={0.2} />
                         </motion.div>
 
                         {/* Linked Reveal Section: Mission */}
@@ -148,13 +154,16 @@ export default function ProjectDetailPage() {
                             </div>
 
                             <div className="space-y-12 md:space-y-16">
-                                {project.longDescription.split('. ').map((sentence, idx) => (
-                                    <div key={idx} className="group relative">
-                                        <div className="text-2xl md:text-5xl font-light leading-[1.3] md:leading-[1.4] tracking-tight">
-                                            <RevealSentence text={sentence.endsWith('.') ? sentence : `${sentence}.`} />
-                                        </div>
-                                    </div>
-                                ))}
+                                <ul className="space-y-6 md:space-y-8 list-none pl-0">
+                                    {project.longDescription.map((item, idx) => (
+                                        <li key={idx} className="group relative flex items-start gap-4">
+                                            <div className="mt-2 w-1.5 h-1.5 rounded-full bg-[var(--accent-blue)] shrink-0 opacity-60" />
+                                            <div className="text-xl md:text-3xl font-light leading-[1.4] tracking-tight">
+                                                <RevealSentence text={item} />
+                                            </div>
+                                        </li>
+                                    ))}
+                                </ul>
                             </div>
                         </div>
 
@@ -164,11 +173,13 @@ export default function ProjectDetailPage() {
                             <motion.div
                                 ref={spotlightRef}
                                 style={{ y: useTransform(scrollYProgress, [0.4, 1], [40, 0]) }}
-                                className="aspect-[16/10] w-full bg-gradient-to-br from-white/5 to-transparent border border-white/10 rounded-2xl overflow-hidden group relative"
+                                className="aspect-[16/10] w-full bg-zinc-900 border border-white/10 rounded-2xl overflow-hidden group relative"
                             >
-                                <div className="absolute inset-0 flex items-center justify-center">
-                                    <span className="text-[12vw] font-black text-white/5 italic select-none">FOCUS</span>
-                                </div>
+                                <div
+                                    className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
+                                    style={{ backgroundImage: `url(${project.images[0]})` }}
+                                />
+                                <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-transparent to-transparent opacity-60" />
                                 <div className="absolute inset-x-0 bottom-0 p-8 md:p-12 bg-gradient-to-t from-black/80 to-transparent flex justify-between items-end">
                                     <div className="space-y-4">
                                         <span className="text-[10px] font-black tracking-[0.2em] uppercase text-white/40">Visual 01</span>
@@ -182,12 +193,22 @@ export default function ProjectDetailPage() {
                             <div className="grid grid-cols-2 gap-8 md:gap-16">
                                 <motion.div
                                     style={{ y: useTransform(scrollYProgress, [0.5, 1], [80, 0]) }}
-                                    className="aspect-[4/5] bg-white/5 border border-white/5 rounded-2xl"
-                                />
+                                    className="aspect-[4/5] bg-zinc-900 border border-white/5 rounded-2xl overflow-hidden relative group"
+                                >
+                                    <div
+                                        className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
+                                        style={{ backgroundImage: `url(${project.images[1] || project.images[0]})` }}
+                                    />
+                                </motion.div>
                                 <motion.div
                                     style={{ y: useTransform(scrollYProgress, [0.6, 1], [120, 0]) }}
-                                    className="aspect-[4/3] bg-white/5 border border-white/5 rounded-2xl"
-                                />
+                                    className="aspect-[4/3] bg-zinc-900 border border-white/5 rounded-2xl overflow-hidden relative group"
+                                >
+                                    <div
+                                        className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
+                                        style={{ backgroundImage: `url(${project.images[2] || project.images[0]})` }}
+                                    />
+                                </motion.div>
                             </div>
                         </div>
                     </div>
@@ -207,7 +228,7 @@ export default function ProjectDetailPage() {
     );
 }
 
-function MetaGroup({ label, value, delay }: { label: string, value: string, delay: number }) {
+function MetaGroup({ label, value, delay }: { label: string, value: string | string[], delay: number }) {
     return (
         <motion.div
             initial={{ opacity: 0, x: -20 }}
@@ -216,8 +237,19 @@ function MetaGroup({ label, value, delay }: { label: string, value: string, dela
             className="space-y-4"
         >
             <span className="text-[9px] font-black tracking-[0.4em] uppercase text-white/20">{label}</span>
-            <div className="text-2xl md:text-3xl font-light">
-                <RevealSentence text={value} opacityRange={[0.1, 0.8]} offset={["start 0.95", "start 0.7"]} />
+            <div className="text-xl md:text-2xl font-light">
+                {Array.isArray(value) ? (
+                    <ul className="space-y-2">
+                        {value.map((item, idx) => (
+                            <li key={idx} className="flex items-center gap-3 text-white/80">
+                                <span className="w-1 h-1 rounded-full bg-[var(--accent-blue)] opacity-50" />
+                                <RevealSentence text={item} opacityRange={[0.4, 1]} offset={["start 0.95", "start 0.7"]} />
+                            </li>
+                        ))}
+                    </ul>
+                ) : (
+                    <RevealSentence text={value} opacityRange={[0.1, 0.8]} offset={["start 0.95", "start 0.7"]} />
+                )}
             </div>
         </motion.div>
     );

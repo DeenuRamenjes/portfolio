@@ -16,8 +16,8 @@ export function SplashScreen({ onComplete }: SplashScreenProps) {
         setTimeout(() => {
             setShow(false);
             // Wait for exit animation to finish before calling onComplete
-            setTimeout(onComplete, 500);
-        }, 1000);
+            setTimeout(onComplete, 300);
+        }, 500);
     };
 
     return (

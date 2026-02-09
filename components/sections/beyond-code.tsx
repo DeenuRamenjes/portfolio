@@ -2,7 +2,7 @@
 
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { Camera, Music, Plane, Book } from "lucide-react";
+import { Music, Book, Gamepad2, ChefHat } from "lucide-react";
 
 export function BeyondTheCode() {
     const containerRef = useRef<HTMLDivElement>(null);
@@ -15,24 +15,24 @@ export function BeyondTheCode() {
 
     const interests = [
         {
-            icon: Camera,
-            title: "Photography",
-            description: "Capturing moments and perspectives through the lens. Street & landscape enthusiast.",
-        },
-        {
             icon: Music,
-            title: "Music Production",
-            description: "Exploring synthesis and sound design. Creating atmospheric soundscapes.",
+            title: "Music",
+            description: "Regularly explore different genres and artists; enjoy immersive audio experiences and discovering new tracks.",
         },
         {
-            icon: Plane,
-            title: "Travel",
-            description: "Seeking inspiration from new cultures, architecture, and environments.",
+            icon: Gamepad2,
+            title: "Gaming",
+            description: "Play story-driven and competitive games; interested in game mechanics, design, and interactive experiences.",
+        },
+        {
+            icon: ChefHat,
+            title: "Cooking",
+            description: "Enjoy experimenting with new recipes and preparing different cuisines as a creative and relaxing activity.",
         },
         {
             icon: Book,
             title: "Reading",
-            description: "Constant learner. Deep diving into sci-fi, philosophy, and tech history.",
+            description: "Constant learner. Deep diving into sci-fi, philosophy, and tech history. Enjoying books on AI, psychology, and self-improvement.",
         },
     ];
 

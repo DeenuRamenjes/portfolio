@@ -5,17 +5,23 @@ import { slideInLeft, slideInRight } from "@/lib/animation-variants";
 
 const experiences = [
   {
+    date: "Sep 2025 - Present",
+    title: "Software Developer Intern",
+    company: "Quantzi Infotech",
+    description: "Contributing to full-stack product development across internal and client projects. Building scalable backend services with Node.js, Express, and MongoDB for real-time features, authentication, analytics, and file handling. Developing interactive frontends using Next.js with schema-driven rendering, animations, and performance optimization.",
+  },
+  {
     date: "Mar 2025 - May 2025",
     title: "Full Stack Developer Intern",
     company: "Quantzi Infotech",
-    description: "Worked on real-time backend projects, implementing scalable server-side logic and RESTful APIs using Node.js and Express.js. Collaborated with teams to debug and improve system reliability.",
+    description: "Completed structured training in full-stack development. Learned Node.js, Express.js, REST API design, and backend architecture fundamentals through guided tasks and internal practice projects.",
   },
   {
-    date: "Jun 2024 - July 2024",
+    date: "Jun 2024 - Jul 2024",
     title: "Frontend Development Intern",
     company: "Srishti Innovative",
-    description: "Developed the user interface for an e-commerce website using React. Collaborated with senior developers to implement responsive, user-friendly layouts with Material-UI.",
-  },
+    description: "Developed UI components for an e-commerce website using React. Implemented responsive layouts with Material-UI under senior developer guidance.",
+  }
 ];
 
 export function Experience() {

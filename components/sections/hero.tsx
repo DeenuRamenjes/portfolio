@@ -59,8 +59,8 @@ export function Hero() {
               className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl mt-2"
             >
               <Typewriter
-                words={["Full-Stack Developer", "Mobile Developer", "UI/UX Engineer"]}
-                delay={3000}
+                words={["Full-Stack Developer", "React Native Developer", "Prompt Engineer", "Front-End Developer"]}
+                delay={2000}
                 className="text-foreground"
                 cursorClassName="bg-[var(--accent-blue)]"
               />

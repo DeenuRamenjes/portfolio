@@ -46,6 +46,8 @@ export function Projects() {
               index={index}
               total={projects.length}
               {...project}
+              image={project.images[0]}
+              status={project.status}
               scrollYProgress={smoothProgress}
             />
           ))}
