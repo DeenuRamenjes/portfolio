@@ -116,8 +116,8 @@ export function ProjectDetailContent({ project }: ProjectDetailContentProps) {
             <section className="relative z-20 px-6 md:px-12 py-24 max-w-[85rem] mx-auto min-h-screen">
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 md:gap-24 items-start">
 
-                    {/* Left: Persistent Sticky Sidebar */}
-                    <aside className="lg:col-span-4 sticky top-40 space-y-16">
+                    {/* Left: Persistent Sticky Sidebar (Desktop Only) */}
+                    <aside className="lg:col-span-4 lg:sticky lg:top-40 space-y-16">
                         <motion.div style={{ opacity: metaOpacity, y: metaY, filter: metaFilter }} className="space-y-12">
                             <MetaGroup label="Deliverable" value={project.year} delay={0} />
                             <MetaGroup label="Role" value={project.role} delay={0.1} />

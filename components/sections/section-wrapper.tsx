@@ -1,6 +1,6 @@
 "use client";
 
-import { ReactNode, useRef } from "react";
+import { ReactNode, useRef, useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { useScrollAnimation } from "@/lib/hooks/use-scroll-animation";
 import { fadeInUp } from "@/lib/animation-variants";
@@ -14,13 +14,18 @@ interface SectionWrapperProps {
 export function SectionWrapper({ children, className = "", id }: SectionWrapperProps) {
   const ref = useRef<HTMLElement>(null!);
   const isVisible = useScrollAnimation(ref);
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   return (
     <motion.section
       ref={ref}
       id={id}
-      initial="hidden"
-      animate={isVisible ? "visible" : "hidden"}
+      initial={isMounted ? "hidden" : false}
+      animate={isMounted ? (isVisible ? "visible" : "hidden") : false}
       variants={fadeInUp}
       className={`relative py-20 md:py-32 ${className}`}
     >

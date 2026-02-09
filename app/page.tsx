@@ -32,16 +32,15 @@ export default function Home() {
     <>
       {showSplash && <SplashScreen onComplete={handleSplashComplete} />}
 
-      <div className={`relative transition-opacity duration-1000 ${showSplash ? 'opacity-0' : 'opacity-100'}`}>
+      <div className={`relative transition-opacity duration-300 ${showSplash ? 'opacity-0' : 'opacity-100'}`}>
         <ScrollProgress />
-        <div className="fixed top-0 left-0 right-0 z-50 flex justify-center p-6 pointer-events-none">
-
-          {/* Portfolio Title - Top Left */}
-          <h1 className="absolute left-6 top-6 text-2xl font-bold tracking-tight text-foreground pointer-events-auto">
+        <div className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between md:justify-center px-6 py-6 md:px-12 pointer-events-none">
+          {/* Logo */}
+          <h1 className="text-2xl font-bold tracking-tight text-foreground transition-transform hover:scale-105 cursor-pointer pointer-events-auto md:absolute md:left-12 md:top-6">
             Portfolio
           </h1>
 
-          {/* Pill Nav - Centered */}
+          {/* Pill Nav */}
           <div className="pointer-events-auto">
             <PillNav
               items={[

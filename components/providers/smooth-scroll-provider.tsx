@@ -20,10 +20,15 @@ export function SmoothScrollProvider({ children }: SmoothScrollProviderProps) {
   const pathname = usePathname();
 
   useEffect(() => {
-    // Detect if mobile device
+    // Detect if mobile device - skip Lenis for better performance
     const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
 
-    // Initialize Lenis
+    // Skip Lenis on mobile for better performance
+    if (isMobile) {
+      return;
+    }
+
+    // Initialize Lenis only on desktop
     const lenis = new Lenis({
       duration: 1.2,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
@@ -33,7 +38,7 @@ export function SmoothScrollProvider({ children }: SmoothScrollProviderProps) {
       wheelMultiplier: 1,
       touchMultiplier: 2,
       infinite: false,
-      lerp: isMobile ? 0.15 : 0.1,
+      lerp: 0.1,
     });
 
     lenisRef.current = lenis;

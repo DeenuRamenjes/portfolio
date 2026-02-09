@@ -16,27 +16,6 @@ export function Footer() {
           >
             © {new Date().getFullYear()} Portfolio. All rights reserved.
           </motion.p>
-          {/* 
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            className="flex gap-6 text-sm"
-          >
-            {["Privacy", "Terms", "Cookies"].map((link, index) => (
-              <motion.a
-                key={link}
-                href="#"
-                className="text-foreground/60 hover:text-foreground transition-colors relative group"
-                whileHover={{ y: -1 }}
-                transition={{ delay: index * 0.05 }}
-              >
-                {link}
-                <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-foreground group-hover:w-full transition-all duration-200" />
-              </motion.a>
-            ))}
-          </motion.div> */}
         </div>
 
         {/* Back to Top */}
@@ -48,6 +27,7 @@ export function Footer() {
           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
           className="absolute right-6 md:right-12 bottom-12 p-3 rounded-full cursor-pointer bg-foreground/10 hover:bg-foreground/20 transition-all duration-300 group"
           whileHover={{ y: -4 }}
+          aria-label="Back to top"
         >
           <svg
             className="w-5 h-5 text-foreground/60 group-hover:text-foreground transition-colors"

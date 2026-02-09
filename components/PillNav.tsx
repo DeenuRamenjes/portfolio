@@ -124,6 +124,38 @@ const PillNav: React.FC<PillNavProps> = ({
     return () => window.removeEventListener('resize', onResize);
   }, [items, ease, initialLoadAnimation]);
 
+  // Close menu when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (!isMobileMenuOpen) return;
+
+      const target = e.target as Node;
+      const menu = mobileMenuRef.current;
+      const hamburger = hamburgerRef.current;
+
+      if (menu && !menu.contains(target) && hamburger && !hamburger.contains(target)) {
+        setIsMobileMenuOpen(false);
+
+        // Animate hamburger back
+        const lines = hamburger.querySelectorAll('.hamburger-line');
+        gsap.to(lines[0], { rotation: 0, y: 0, duration: 0.3, ease });
+        gsap.to(lines[1], { rotation: 0, y: 0, duration: 0.3, ease });
+
+        // Hide menu
+        gsap.to(menu, {
+          opacity: 0,
+          y: 10,
+          duration: 0.2,
+          ease,
+          onComplete: () => { gsap.set(menu, { visibility: 'hidden' }); }
+        });
+      }
+    };
+
+    document.addEventListener('click', handleClickOutside);
+    return () => document.removeEventListener('click', handleClickOutside);
+  }, [isMobileMenuOpen, ease]);
+
   const handleEnter = (i: number) => {
     const tl = tlRefs.current[i];
     if (!tl) return;
@@ -197,6 +229,32 @@ const PillNav: React.FC<PillNavProps> = ({
     onMobileMenuClick?.();
   };
 
+  // Dedicated function to close menu with proper state and animation sync
+  const closeMobileMenu = () => {
+    if (!isMobileMenuOpen) return;
+
+    setIsMobileMenuOpen(false);
+
+    const hamburger = hamburgerRef.current;
+    const menu = mobileMenuRef.current;
+
+    if (hamburger) {
+      const lines = hamburger.querySelectorAll('.hamburger-line');
+      gsap.to(lines[0], { rotation: 0, y: 0, duration: 0.3, ease });
+      gsap.to(lines[1], { rotation: 0, y: 0, duration: 0.3, ease });
+    }
+
+    if (menu) {
+      gsap.to(menu, {
+        opacity: 0,
+        y: 10,
+        duration: 0.2,
+        ease,
+        onComplete: () => { gsap.set(menu, { visibility: 'hidden' }); }
+      });
+    }
+  };
+
   const isExternalLink = (href: string) =>
     href.startsWith('http://') ||
     href.startsWith('https://') ||
@@ -229,9 +287,9 @@ const PillNav: React.FC<PillNavProps> = ({
   } as React.CSSProperties;
 
   return (
-    <div className="relative w-full md:w-auto">
+    <div className="relative">
       <nav
-        className={`w-full md:w-max flex items-center justify-between md:justify-start box-border px-4 md:px-0 ${className}`}
+        className={`flex items-center justify-end md:justify-start box-border px-0 ${className}`}
         aria-label="Primary"
         style={cssVars}
       >
@@ -363,29 +421,29 @@ const PillNav: React.FC<PillNavProps> = ({
 
       <div
         ref={mobileMenuRef}
-        className="md:hidden absolute top-[3em] left-4 right-4 rounded-[27px] shadow-[0_8px_32px_rgba(0,0,0,0.12)] z-[998] origin-top"
+        className="md:hidden absolute top-[calc(100%+12px)] right-0 w-64 rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.5)] z-[998] origin-top-right border border-white/10 backdrop-blur-3xl overflow-hidden"
         style={{
           ...cssVars,
-          background: 'var(--base, #f0f0f0)'
+          background: 'rgba(10, 10, 10, 0.9)'
         }}
       >
-        <ul className="list-none m-0 p-[3px] flex flex-col gap-[3px]">
+        <ul className="list-none m-0 p-2 flex flex-col gap-1">
           {items.map(item => {
             const defaultStyle: React.CSSProperties = {
-              background: 'var(--pill-bg, #fff)',
-              color: 'var(--pill-text, #fff)'
+              color: 'rgba(255, 255, 255, 0.6)'
             };
+
             const hoverIn = (e: React.MouseEvent<HTMLAnchorElement>) => {
-              e.currentTarget.style.background = 'var(--base)';
-              e.currentTarget.style.color = 'var(--hover-text, #fff)';
+              e.currentTarget.style.background = 'rgba(255, 255, 255, 0.05)';
+              e.currentTarget.style.color = 'var(--accent-blue, #fff)';
             };
             const hoverOut = (e: React.MouseEvent<HTMLAnchorElement>) => {
-              e.currentTarget.style.background = 'var(--pill-bg, #fff)';
-              e.currentTarget.style.color = 'var(--pill-text, #fff)';
+              e.currentTarget.style.background = 'transparent';
+              e.currentTarget.style.color = 'rgba(255, 255, 255, 0.6)';
             };
 
             const linkClasses =
-              'block py-3 px-4 text-[16px] font-medium rounded-[50px] transition-all duration-200 ease-[cubic-bezier(0.25,0.1,0.25,1)]';
+              'block py-4 px-6 text-[14px] font-bold uppercase tracking-[0.2em] rounded-xl transition-all duration-300 ease-out';
 
             return (
               <li key={item.href}>
@@ -396,7 +454,10 @@ const PillNav: React.FC<PillNavProps> = ({
                     style={defaultStyle}
                     onMouseEnter={hoverIn}
                     onMouseLeave={hoverOut}
-                    onClick={() => setIsMobileMenuOpen(false)}
+                    onClick={(e) => {
+                      scrollToSection(e, item.href);
+                      closeMobileMenu();
+                    }}
                   >
                     {item.label}
                   </Link>
@@ -407,7 +468,10 @@ const PillNav: React.FC<PillNavProps> = ({
                     style={defaultStyle}
                     onMouseEnter={hoverIn}
                     onMouseLeave={hoverOut}
-                    onClick={() => setIsMobileMenuOpen(false)}
+                    onClick={(e) => {
+                      scrollToSection(e, item.href);
+                      closeMobileMenu();
+                    }}
                   >
                     {item.label}
                   </a>

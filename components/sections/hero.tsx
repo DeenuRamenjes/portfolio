@@ -71,7 +71,7 @@ export function Hero() {
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.5, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ delay: 0.2, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
             className="text-lg md:text-xl text-foreground/60 max-w-2xl pt-4"
           >
             Crafting High-Performance, User-Centric Applications
@@ -81,7 +81,7 @@ export function Hero() {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.7, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ delay: 0.4, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
             className="pt-8"
           >
             <Button

@@ -111,14 +111,14 @@ export const imageZoom: Variants = {
 export const heroTextLine: Variants = {
   hidden: {
     opacity: 0,
-    y: 40,
+    y: 20,
   },
   visible: (i: number) => ({
     opacity: 1,
     y: 0,
     transition: {
-      duration: 0.9,
-      delay: i * 0.1,
+      duration: 0.6,
+      delay: i * 0.05,
       ease: [0.22, 1, 0.36, 1],
     },
   }),
