@@ -10,6 +10,7 @@ interface ProjectCardProps {
   slug: string;
   image: string;
   status?: string;
+  liveUrl?: string;
   index: number;
   scrollYProgress: MotionValue<number>;
   total: number;
@@ -21,6 +22,7 @@ export function ProjectCard({
   slug,
   image,
   status,
+  liveUrl,
   index,
   scrollYProgress,
   total
@@ -90,7 +92,7 @@ export function ProjectCard({
               <div className="flex flex-wrap items-center gap-3">
                 <div className="inline-flex items-center gap-4 px-4 py-1.5 rounded-full border border-white/5 bg-white/5">
                   <span className="w-1.5 h-1.5 rounded-full bg-[var(--accent-blue)]" />
-                  <span className="text-[9px] font-bold tracking-[0.5em] text-white/30 uppercase">Selected 0{index + 1}</span>
+                  <span className="text-[9px] font-bold tracking-[0.5em] text-white/30 uppercase">Project 0{index + 1}</span>
                 </div>
                 {status && (
                   <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-yellow-500/20 bg-yellow-500/10 text-yellow-500">
@@ -110,14 +112,23 @@ export function ProjectCard({
               {description}
             </p>
 
-            <div className="pt-4 md:pt-6">
+            <div className="flex flex-wrap items-center gap-4 pt-4 md:pt-6">
               <Link
                 href={`/projects/${slug}`}
-                className="group/btn inline-flex relative px-10 py-5 rounded-sm bg-white text-black font-black tracking-tight text-lg transition-all duration-300 hover:bg-[var(--accent-blue)] hover:text-white overflow-hidden"
+                className="group/btn inline-flex relative px-8 py-4 rounded-sm bg-white text-black font-black tracking-tight text-base transition-all duration-300 hover:bg-[var(--accent-blue)] hover:text-white overflow-hidden"
               >
                 <span className="relative z-10">Explore Case</span>
                 <div className="absolute inset-0 bg-black/10 translate-y-full group-hover/btn:translate-y-0 transition-transform duration-500" />
               </Link>
+
+              {liveUrl && (
+                <button
+                  onClick={() => window.open(liveUrl, "_blank")}
+                  className="group/live inline-flex cursor-pointer items-center gap-2 px-8 py-4 rounded-sm border border-white/10 bg-white/5 text-white font-black tracking-tight text-base transition-all duration-300 hover:bg-white/10 hover:border-white/20"
+                >
+                  <span>Live Demo</span>
+                </button>
+              )}
             </div>
           </div>
         </div>

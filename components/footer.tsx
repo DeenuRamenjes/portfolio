@@ -46,7 +46,7 @@ export function Footer() {
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.2 }}
           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-          className="absolute right-6 md:right-12 bottom-12 p-3 rounded-full bg-foreground/10 hover:bg-foreground/20 transition-all duration-300 group"
+          className="absolute right-6 md:right-12 bottom-12 p-3 rounded-full cursor-pointer bg-foreground/10 hover:bg-foreground/20 transition-all duration-300 group"
           whileHover={{ y: -4 }}
         >
           <svg

@@ -86,7 +86,7 @@ export function Hero() {
           >
             <Button
               size="lg"
-              className="relative group overflow-hidden bg-foreground text-background hover:bg-foreground/90 transition-all duration-300"
+              className="relative group cursor-pointer overflow-hidden bg-foreground text-background hover:bg-foreground/90 transition-all duration-300"
               onClick={() => {
                 const element = document.querySelector("#projects");
                 element?.scrollIntoView({ behavior: "smooth" });

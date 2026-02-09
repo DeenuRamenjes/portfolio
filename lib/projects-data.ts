@@ -8,6 +8,7 @@ export interface Project {
     role: string;
     images: string[];
     status?: string;
+    liveUrl?: string;
 }
 
 export const projects: Project[] = [
@@ -39,7 +40,8 @@ export const projects: Project[] = [
         technologies: ["Next.js", "Animations", "Performance Optimization"],
         year: "2025",
         role: "Frontend Developer",
-        images: ["/assets/quantzi1.webp", "/assets/quantzi2.webp", "/assets/quantzi3.webp"]
+        images: ["/assets/quantzi1.webp", "/assets/quantzi2.webp", "/assets/quantzi3.webp"],
+        liveUrl: "https://quantzi.co"
     },
     {
         slug: "drsmusic",
@@ -57,7 +59,8 @@ export const projects: Project[] = [
         technologies: ["React Native", "TypeScript", "Node.js", "MongoDB", "Cloud Storage"],
         year: "2025",
         role: "Full Stack Developer",
-        images: ["/assets/drsmusic1.webp", "/assets/drsmusic2.webp", "/assets/drsmusic3.webp"]
+        images: ["/assets/drsmusic1.webp", "/assets/drsmusic2.webp", "/assets/drsmusic3.webp"],
+        liveUrl: "https://drs-music-player.onrender.com"
     },
     {
         slug: "quintorq-website",
@@ -70,6 +73,7 @@ export const projects: Project[] = [
         technologies: ["Web Design", "Content Management", "UI Redesign"],
         year: "2025",
         role: "Web Designer",
-        images: ["/assets/quintorq1.webp", "/assets/quintorq2.webp", "/assets/quintorq3.webp"]
+        images: ["/assets/quintorq1.webp", "/assets/quintorq2.webp", "/assets/quintorq3.webp"],
+        liveUrl: "https://quintorq.com"
     }
 ];

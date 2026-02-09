@@ -54,7 +54,7 @@ export function Contact() {
         >
           <Button
             size="lg"
-            className="relative group overflow-hidden bg-foreground text-background hover:bg-foreground/90"
+            className="relative group cursor-pointer overflow-hidden bg-foreground text-background hover:bg-foreground/90"
           >
             <span className="relative z-10">Send Email</span>
             <motion.div
@@ -74,7 +74,7 @@ export function Contact() {
           <Button
             size="lg"
             variant="outline"
-            className="border-white/20 hover:border-white/40 hover:bg-white/5"
+            className="border-white/20 cursor-pointer hover:border-white/40 hover:bg-white/5"
           >
             Download Resume
           </Button>
