@@ -68,10 +68,10 @@ export function ProjectCard({
       <Card className="group relative w-full h-full overflow-hidden bg-zinc-900/40 backdrop-blur-3xl border-white/5 shadow-[0_50px_100px_rgba(0,0,0,0.8)] border flex flex-col md:flex-row">
 
         {/* Visual Layer - Shorter on mobile */}
-        <div className="relative w-full md:flex-1 h-48 md:h-full bg-[#080808] overflow-hidden transition-all duration-700 ease-out">
+        <div className="relative w-full md:flex-1 h-48 md:h-full overflow-hidden transition-all duration-700 ease-out">
           {/* Background Image */}
           <div
-            className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-90 transition-opacity duration-700"
+            className="absolute lg:left-6 inset-0 bg-cover rounded-sm bg-center bg-no-repeat opacity-90 transition-opacity duration-700"
             style={{ backgroundImage: `url(${image})` }}
           />
 
@@ -82,11 +82,11 @@ export function ProjectCard({
           </div>
 
           {/* <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-transparent to-transparent pointer-events-none" /> */}
-          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/80 pointer-events-none" />
+          <div className="absolute lg:left-6 inset-0 bg-gradient-to-b from-transparent via-transparent to-black/80 pointer-events-none" />
         </div>
 
         {/* Content Layer */}
-        <div className="flex-1 p-8 md:p-20 flex flex-col justify-center border-t md:border-t-0 md:border-l border-white/5 bg-zinc-950/20 relative z-10">
+        <div className="flex-1 p-8 md:p-20 flex flex-col justify-center relative z-10">
           <div className="space-y-6 md:space-y-8">
             <div className="space-y-4">
               <div className="flex flex-wrap items-center gap-3">
@@ -145,7 +145,7 @@ export function ProjectCard({
         style={{ opacity: useTransform(scrollYProgress, [dwellStart - 0.05, dwellStart, dwellEnd, dwellEnd + 0.05], [0, 1, 1, 0]) }}
         className="absolute -bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
       >
-        <div className="w-px h-12 bg-gradient-to-b from-white/20 to-transparent" />
+        {/* <div className="w-px h-12 bg-gradient-to-b from-white/20 to-transparent" /> */}
         <span className="text-[8px] font-bold tracking-[0.5em] text-white/20 uppercase">In-View</span>
       </motion.div>
     </motion.div>

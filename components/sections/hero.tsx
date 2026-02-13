@@ -26,6 +26,7 @@ export function Hero() {
             {/* Line 1 */}
             <motion.h1
               custom={0}
+              initial="visible"
               variants={heroTextLine}
               className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl"
             >
@@ -56,14 +57,18 @@ export function Hero() {
             <motion.h1
               custom={2}
               variants={heroTextLine}
-              className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl mt-2"
+              className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl mt-2 relative"
             >
-              <Typewriter
-                words={["Full-Stack Developer", "React Native Developer", "Prompt Engineer", "Front-End Developer"]}
-                delay={2000}
-                className="text-foreground"
-                cursorClassName="bg-[var(--accent-blue)]"
-              />
+              {/* Layout Placeholder to prevent CLS */}
+              <span className="invisible opacity-0 select-none">React Native Developer</span>
+              <div className="absolute top-0 left-0">
+                <Typewriter
+                  words={["Full-Stack Developer", "React Native Developer", "Prompt Engineer", "Front-End Developer"]}
+                  delay={2000}
+                  className="text-foreground"
+                  cursorClassName="bg-[var(--accent-blue)]"
+                />
+              </div>
             </motion.h1>
           </motion.div>
 

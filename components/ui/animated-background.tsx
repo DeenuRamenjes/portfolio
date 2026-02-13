@@ -10,13 +10,13 @@ export function AnimatedBackground() {
         setMounted(true);
     }, []);
 
-    if (!mounted) return null;
+    // Optimized: Render base layer immediately (SSR), only defer random orbs (Client)
     return (
         <div className="fixed inset-0 overflow-hidden pointer-events-none -z-10">
-            {/* Deep Space Base */}
+            {/* Deep Space Base - Always visible to prevent flash */}
             <div className="absolute inset-0 bg-[#030014]" />
 
-            {/* MOBILE BACKGROUND: Simple static orbs for LCP performance */}
+            {/* MOBILE BACKGROUND: Simple static orbs for LCP performance (SSR safe) */}
             <div className="md:hidden">
                 <div
                     className="absolute top-[-10%] left-[-10%] w-[50vw] h-[50vw] rounded-full blur-[80px] opacity-30"
@@ -32,37 +32,39 @@ export function AnimatedBackground() {
                 />
             </div>
 
-            {/* DESKTOP BACKGROUND: Animated complex random orbs */}
-            <div className="hidden md:block">
-                <RandomOrb
-                    baseColor="var(--accent-blue)"
-                    initialPosition={{ top: "-10%", left: "-10%" }}
-                    size="50vw"
-                />
-                <RandomOrb
-                    baseColor="var(--accent-purple)"
-                    initialPosition={{ bottom: "-10%", right: "-10%" }}
-                    size="50vw"
-                    delay={2}
-                />
-                <RandomOrb
-                    baseColor="rgba(34, 211, 238, 0.4)"
-                    initialPosition={{ top: "30%", left: "20%" }}
-                    size="40vw"
-                    delay={4}
-                />
-                <RandomOrb
-                    baseColor="rgba(168, 85, 247, 0.4)"
-                    initialPosition={{ bottom: "20%", right: "30%" }}
-                    size="45vw"
-                    delay={6}
-                />
+            {/* DESKTOP BACKGROUND: Animated complex random orbs (Client Only) */}
+            {mounted && (
+                <div className="hidden md:block">
+                    <RandomOrb
+                        baseColor="var(--accent-blue)"
+                        initialPosition={{ top: "-10%", left: "-10%" }}
+                        size="50vw"
+                    />
+                    <RandomOrb
+                        baseColor="var(--accent-purple)"
+                        initialPosition={{ bottom: "-10%", right: "-10%" }}
+                        size="50vw"
+                        delay={2}
+                    />
+                    <RandomOrb
+                        baseColor="rgba(34, 211, 238, 0.4)"
+                        initialPosition={{ top: "30%", left: "20%" }}
+                        size="40vw"
+                        delay={4}
+                    />
+                    <RandomOrb
+                        baseColor="rgba(168, 85, 247, 0.4)"
+                        initialPosition={{ bottom: "20%", right: "30%" }}
+                        size="45vw"
+                        delay={6}
+                    />
 
-                {/* Grid Overlay */}
-                <div
-                    className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)] opacity-20"
-                />
-            </div>
+                    {/* Grid Overlay */}
+                    <div
+                        className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)] opacity-20"
+                    />
+                </div>
+            )}
         </div>
     );
 }

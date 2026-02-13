@@ -30,7 +30,7 @@ export function Marquee({
                 }}
             >
                 {[...items, ...items, ...items, ...items].map((item, index) => (
-                    <span key={index} className="text-4xl md:text-6xl bg-transparent font-bold uppercase tracking-tighter opacity-10">
+                    <span key={index} className="text-4xl md:text-6xl bg-transparent font-bold uppercase tracking-tighter opacity-70">
                         {item}
                     </span>
                 ))}

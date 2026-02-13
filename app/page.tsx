@@ -32,7 +32,7 @@ export default function Home() {
     <>
       {showSplash && <SplashScreen onComplete={handleSplashComplete} />}
 
-      <div className={`relative transition-opacity duration-300 ${showSplash ? 'opacity-0' : 'opacity-100'}`}>
+      <main className={`relative transition-opacity duration-300 ${showSplash ? 'opacity-0' : 'opacity-100'}`}>
         <ScrollProgress />
         <div className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between md:justify-center px-6 py-6 md:px-12 pointer-events-none">
           {/* Logo */}
@@ -91,7 +91,7 @@ export default function Home() {
           <Contact />
         </SectionWrapper>
         <Footer />
-      </div>
+      </main>
     </>
   );
 }
