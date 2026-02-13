@@ -18,6 +18,10 @@ export function Projects() {
     restDelta: 0.001
   });
 
+  // Hoisted from inline JSX to avoid creating new MotionValues every render
+  const titleOpacity = useTransform(smoothProgress, [0, 0.05, 0.95, 1], [0, 1, 1, 0]);
+  const titleY = useTransform(smoothProgress, [0, 0.05], [20, 0]);
+
   // No horizontal x transform needed for 3D stack
 
   return (
@@ -28,8 +32,8 @@ export function Projects() {
         <div className="absolute top-12 left-6 md:left-12 z-20 pointer-events-none">
           <motion.div
             style={{
-              opacity: useTransform(smoothProgress, [0, 0.05, 0.95, 1], [0, 1, 1, 0]),
-              y: useTransform(smoothProgress, [0, 0.05], [20, 0])
+              opacity: titleOpacity,
+              y: titleY
             }}
           >
             <h2 className="text-2xl md:text-3xl font-heading font-black tracking-tighter text-white/20 uppercase">

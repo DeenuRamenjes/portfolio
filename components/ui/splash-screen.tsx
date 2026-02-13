@@ -12,12 +12,10 @@ export function SplashScreen({ onComplete }: SplashScreenProps) {
     const [show, setShow] = useState(true);
 
     const handleTypingComplete = () => {
-        // Reduced delay after typing finishes before fading out
         setTimeout(() => {
             setShow(false);
-            // Faster exit animation timing
-            setTimeout(onComplete, 200);
-        }, 200);
+            setTimeout(onComplete, 150);
+        }, 100);
     };
 
     return (

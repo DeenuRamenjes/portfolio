@@ -4,6 +4,29 @@ import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { Music, Book, Gamepad2, ChefHat } from "lucide-react";
 
+const interests = [
+    {
+        icon: Music,
+        title: "Music",
+        description: "Regularly explore different genres and artists; enjoy immersive audio experiences and discovering new tracks.",
+    },
+    {
+        icon: Gamepad2,
+        title: "Gaming",
+        description: "Play story-driven and competitive games; interested in game mechanics, design, and interactive experiences.",
+    },
+    {
+        icon: ChefHat,
+        title: "Cooking",
+        description: "Enjoy experimenting with new recipes and preparing different cuisines as a creative and relaxing activity.",
+    },
+    {
+        icon: Book,
+        title: "Reading",
+        description: "Constant learner. Deep diving into sci-fi, philosophy, and tech history. Enjoying books on AI, psychology, and self-improvement.",
+    },
+];
+
 export function BeyondTheCode() {
     const containerRef = useRef<HTMLDivElement>(null);
     const { scrollYProgress } = useScroll({
@@ -13,34 +36,14 @@ export function BeyondTheCode() {
 
     const y = useTransform(scrollYProgress, [0, 1], [100, -100]);
 
-    const interests = [
-        {
-            icon: Music,
-            title: "Music",
-            description: "Regularly explore different genres and artists; enjoy immersive audio experiences and discovering new tracks.",
-        },
-        {
-            icon: Gamepad2,
-            title: "Gaming",
-            description: "Play story-driven and competitive games; interested in game mechanics, design, and interactive experiences.",
-        },
-        {
-            icon: ChefHat,
-            title: "Cooking",
-            description: "Enjoy experimenting with new recipes and preparing different cuisines as a creative and relaxing activity.",
-        },
-        {
-            icon: Book,
-            title: "Reading",
-            description: "Constant learner. Deep diving into sci-fi, philosophy, and tech history. Enjoying books on AI, psychology, and self-improvement.",
-        },
-    ];
+    // Hoisted from inline JSX to avoid creating new MotionValues every render
+    const bgDecoY = useTransform(scrollYProgress, [0, 1], [-100, 100]);
 
     return (
         <section ref={containerRef} className="py-32 relative overflow-hidden">
             {/* Background decoration */}
             <motion.div
-                style={{ y: useTransform(scrollYProgress, [0, 1], [-100, 100]) }}
+                style={{ y: bgDecoY }}
                 className="absolute top-0 right-0 w-[500px] h-[500px] bg-[var(--accent-blue)]/5 rounded-full blur-[100px] pointer-events-none"
             />
 

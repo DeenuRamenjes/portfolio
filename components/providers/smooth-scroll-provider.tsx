@@ -52,15 +52,17 @@ export function SmoothScrollProvider({ children }: SmoothScrollProviderProps) {
     });
 
     // RAF loop for smooth scroll
+    let rafId: number;
     function raf(time: number) {
       lenis.raf(time);
-      requestAnimationFrame(raf);
+      rafId = requestAnimationFrame(raf);
     }
 
-    requestAnimationFrame(raf);
+    rafId = requestAnimationFrame(raf);
 
     // Cleanup
     return () => {
+      cancelAnimationFrame(rafId);
       lenis.destroy();
       document.documentElement.classList.remove("lenis");
       ScrollTrigger.getAll().forEach((trigger) => trigger.kill());

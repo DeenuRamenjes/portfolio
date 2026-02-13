@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { useMemo } from "react";
 
 interface MarqueeProps {
     items: string[];
@@ -15,6 +16,8 @@ export function Marquee({
     speed = 20,
     className = ""
 }: MarqueeProps) {
+    const repeatedItems = useMemo(() => [...items, ...items, ...items, ...items], [items]);
+
     return (
         <div className={`flex overflow-hidden bg-transparent whitespace-nowrap ${className}`}>
             <motion.div
@@ -29,7 +32,7 @@ export function Marquee({
                     duration: speed,
                 }}
             >
-                {[...items, ...items, ...items, ...items].map((item, index) => (
+                {repeatedItems.map((item, index) => (
                     <span key={index} className="text-4xl md:text-6xl bg-transparent font-bold uppercase tracking-tighter opacity-70">
                         {item}
                     </span>

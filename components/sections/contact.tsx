@@ -4,8 +4,9 @@ import { motion } from "framer-motion";
 import { staggerContainer, staggerItem } from "@/lib/animation-variants";
 import { Button } from "@/components/ui/button";
 
+const heading = "Let's Create Something Amazing Together".split(" ");
+
 export function Contact() {
-  const heading = "Let's Create Something Amazing Together".split(" ");
 
   return (
     <div className="text-center max-w-4xl mx-auto">

@@ -96,7 +96,11 @@ const PillNav: React.FC<PillNavProps> = ({
 
     layout();
 
-    const onResize = () => layout();
+    let resizeTimer: ReturnType<typeof setTimeout>;
+    const onResize = () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(layout, 150);
+    };
     window.addEventListener('resize', onResize);
 
     if (document.fonts) {
@@ -121,7 +125,10 @@ const PillNav: React.FC<PillNavProps> = ({
       }
     }
 
-    return () => window.removeEventListener('resize', onResize);
+    return () => {
+      window.removeEventListener('resize', onResize);
+      clearTimeout(resizeTimer);
+    };
   }, [items, ease, initialLoadAnimation]);
 
   // Close menu when clicking outside

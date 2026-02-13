@@ -506,7 +506,6 @@ const useMobileDetection = () => {
 
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth <= MOBILE_BREAKPOINT);
-
     checkMobile();
     window.addEventListener('resize', checkMobile);
 

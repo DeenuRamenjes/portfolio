@@ -34,12 +34,16 @@ export function Experience() {
   // Timeline line height based on scroll
   const lineHeight = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
 
+  // Hoisted from inline JSX to avoid creating new MotionValues every render
+  const headingOpacity = useTransform(scrollYProgress, [0, 0.1], [0, 1]);
+  const headingY = useTransform(scrollYProgress, [0, 0.1], [30, 0]);
+
   return (
     <div ref={containerRef}>
       <motion.h2
         style={{
-          opacity: useTransform(scrollYProgress, [0, 0.1], [0, 1]),
-          y: useTransform(scrollYProgress, [0, 0.1], [30, 0])
+          opacity: headingOpacity,
+          y: headingY
         }}
         className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold mb-16"
       >
