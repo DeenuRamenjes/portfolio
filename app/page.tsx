@@ -57,7 +57,7 @@ export default function Home() {
         </div>
         <Hero />
 
-        <div className="py-12 bg-background/50 backdrop-blur-sm border-y border-white/5">
+        <div className="py-12 backdrop-blur-lg">
           <Marquee
             items={[
               "Performant", "Reliable", "Scalable", "Maintainable", "Secure",

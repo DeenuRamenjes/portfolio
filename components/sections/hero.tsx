@@ -4,14 +4,14 @@ import { motion } from "framer-motion";
 import { heroTextLine } from "@/lib/animation-variants";
 import { Button } from "@/components/ui/button";
 import { ShinyText } from "@/components/ui/shiny-text";
-import { AnimatedBackground } from "@/components/ui/animated-background";
+
 import { Typewriter } from "@/components/ui/typewriter";
 
 
 export function Hero() {
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      <AnimatedBackground />
+
 
       <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-12 py-32">
         <div className="space-y-6">

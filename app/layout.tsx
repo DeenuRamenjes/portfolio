@@ -4,6 +4,7 @@ import "./globals.css";
 import { SmoothScrollProvider } from "@/components/providers/smooth-scroll-provider";
 import { PageTransition } from "@/components/page-transition";
 import { GrainOverlay } from "@/components/grain-overlay";
+import { AnimatedBackground } from "@/components/ui/animated-background";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -20,8 +21,8 @@ const spaceGrotesk = Space_Grotesk({
 });
 
 export const metadata: Metadata = {
-  title: "Premium Portfolio",
-  description: "A cinematic portfolio with smooth scrolling and modern animations",
+  title: "Deenu Ramenjes M S",
+  description: "Deenu Ramenjes M S Portfolio",
   viewport: {
     width: "device-width",
     initialScale: 1,
@@ -43,6 +44,7 @@ export default function RootLayout({
         className={`${inter.variable} ${spaceGrotesk.variable} antialiased font-sans`}
       >
         <SmoothScrollProvider>
+          <AnimatedBackground />
           <PageTransition>{children}</PageTransition>
         </SmoothScrollProvider>
       </body>

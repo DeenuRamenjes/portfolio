@@ -51,7 +51,7 @@ export function ProjectDetailContent({ project }: ProjectDetailContentProps) {
     const projectIndex = projects.findIndex((p) => p.slug === project.slug);
 
     return (
-        <main ref={containerRef} className="bg-[#050505] text-white selection:bg-[var(--accent-blue)] selection:text-white overflow-clip">
+        <main ref={containerRef} className=" text-white selection:bg-[var(--accent-blue)] selection:text-white overflow-clip">
             {/* Cinematic Hero */}
             <section className="relative h-screen w-full flex items-center justify-center overflow-hidden">
                 <motion.div
@@ -108,11 +108,11 @@ export function ProjectDetailContent({ project }: ProjectDetailContentProps) {
                 {/* Floating Back Button */}
                 <div className="fixed top-12 left-12 z-50">
                     <button
-                        onClick={() => router.push("/#projects")}
-                        className="group flex items-center gap-4 text-white/40 hover:text-white transition-colors duration-500"
+                        onClick={() => router.back()}
+                        className="group flex items-center cursor-pointer gap-4 text-white/40 hover:text-white transition-colors duration-500"
                     >
                         <div className="relative w-12 h-12 rounded-full border border-white/10 flex items-center justify-center overflow-hidden transition-transform group-hover:scale-110">
-                            <ArrowLeft className="w-4 h-4 relative z-10 transition-transform group-hover:-translate-x-1" />
+                            <ArrowLeft className="w-4 h-4 relative z-10 transition-transform" />
                             <div className="absolute inset-0 bg-white/10 translate-y-full group-hover:translate-y-0 transition-transform duration-500" />
                         </div>
                         <span className="text-[10px] font-black tracking-[0.2em] uppercase opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500">

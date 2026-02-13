@@ -12,7 +12,7 @@ export function AnimatedBackground() {
 
     if (!mounted) return null;
     return (
-        <div className="absolute inset-0 overflow-hidden pointer-events-none -z-10">
+        <div className="fixed inset-0 overflow-hidden pointer-events-none -z-10">
             {/* Deep Space Base */}
             <div className="absolute inset-0 bg-[#030014]" />
 
@@ -32,60 +32,30 @@ export function AnimatedBackground() {
                 />
             </div>
 
-            {/* DESKTOP BACKGROUND: Animated complex orbs toggle for power */}
+            {/* DESKTOP BACKGROUND: Animated complex random orbs */}
             <div className="hidden md:block">
-                {/* Primary Gradient Orb - Cyan */}
-                <motion.div
-                    className="absolute top-[-10%] left-[-10%] w-[35vw] h-[35vw] rounded-full blur-[100px] opacity-40"
-                    style={{
-                        background: "radial-gradient(circle, var(--accent-blue) 0%, transparent 70%)",
-                    }}
-                    animate={{
-                        x: [0, 100, 0],
-                        y: [0, 50, 0],
-                        scale: [1, 1.2, 1],
-                    }}
-                    transition={{
-                        duration: 20,
-                        repeat: Infinity,
-                        ease: "easeInOut",
-                    }}
+                <RandomOrb
+                    baseColor="var(--accent-blue)"
+                    initialPosition={{ top: "-10%", left: "-10%" }}
+                    size="50vw"
                 />
-
-                {/* Secondary Gradient Orb - Purple */}
-                <motion.div
-                    className="absolute bottom-[-10%] right-[-10%] w-[35vw] h-[35vw] rounded-full blur-[100px] opacity-40"
-                    style={{
-                        background: "radial-gradient(circle, var(--accent-purple) 0%, transparent 70%)",
-                    }}
-                    animate={{
-                        x: [0, -100, 0],
-                        y: [0, -50, 0],
-                        scale: [1, 1.3, 1],
-                    }}
-                    transition={{
-                        duration: 25,
-                        repeat: Infinity,
-                        ease: "easeInOut",
-                        delay: 2,
-                    }}
+                <RandomOrb
+                    baseColor="var(--accent-purple)"
+                    initialPosition={{ bottom: "-10%", right: "-10%" }}
+                    size="50vw"
+                    delay={2}
                 />
-
-                {/* Floating Accent Orb */}
-                <motion.div
-                    className="absolute top-[40%] left-[30%] w-[35vw] h-[35vw] rounded-full blur-[80px] opacity-30"
-                    style={{
-                        background: "radial-gradient(circle, rgba(34, 211, 238, 0.4) 0%, transparent 70%)",
-                    }}
-                    animate={{
-                        x: [0, 60, -60, 0],
-                        y: [0, -60, 60, 0],
-                    }}
-                    transition={{
-                        duration: 30,
-                        repeat: Infinity,
-                        ease: "easeInOut",
-                    }}
+                <RandomOrb
+                    baseColor="rgba(34, 211, 238, 0.4)"
+                    initialPosition={{ top: "30%", left: "20%" }}
+                    size="40vw"
+                    delay={4}
+                />
+                <RandomOrb
+                    baseColor="rgba(168, 85, 247, 0.4)"
+                    initialPosition={{ bottom: "20%", right: "30%" }}
+                    size="45vw"
+                    delay={6}
                 />
 
                 {/* Grid Overlay */}
@@ -94,5 +64,32 @@ export function AnimatedBackground() {
                 />
             </div>
         </div>
+    );
+}
+
+function RandomOrb({ baseColor, initialPosition, size, delay = 0 }: { baseColor: string, initialPosition: any, size: string, delay?: number }) {
+    return (
+        <motion.div
+            className="absolute rounded-full blur-[100px] opacity-30"
+            style={{
+                ...initialPosition,
+                width: size,
+                height: size,
+                background: `radial-gradient(circle, ${baseColor} 0%, transparent 70%)`,
+            }}
+            animate={{
+                x: [0, Math.random() * 400 - 200, Math.random() * 400 - 200, 0],
+                y: [0, Math.random() * 400 - 200, Math.random() * 400 - 200, 0],
+                scale: [1, 1.2, 0.8, 1],
+                rotate: [0, 180, 360],
+            }}
+            transition={{
+                duration: 20 + Math.random() * 10,
+                repeat: Infinity,
+                repeatType: "reverse",
+                ease: "easeInOut",
+                delay: delay,
+            }}
+        />
     );
 }
