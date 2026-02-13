@@ -30,6 +30,22 @@ export default function Home() {
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Person",
+            name: "Deenu Ramenjes",
+            url: "https://www.deenu.fun",
+            jobTitle: "Full Stack Software Developer",
+            sameAs: [
+              "https://www.linkedin.com/in/deenu-ramenjes-ms-b49902336",
+              "https://github.com/DeenuRamenjes"
+            ],
+          }),
+        }}
+      />
       {showSplash && <SplashScreen onComplete={handleSplashComplete} />}
 
       <main className={`relative transition-opacity duration-300 ${showSplash ? 'opacity-0' : 'opacity-100'}`}>

@@ -23,10 +23,10 @@ const spaceGrotesk = Space_Grotesk({
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.deenu.fun"),
   title: {
-    default: "Deenu Ramenjes M S",
+    default: "Deenu Ramenjes M S | Full Stack Software Developer",
     template: "%s | Deenu Ramenjes",
   },
-  description: "Software Developer specializing in Next.js, React, and scalable web applications.",
+  description: "Full Stack Software Developer specializing in Next.js, React, Node.js, MongoDB, and scalable schema-driven SaaS systems.",
   icons: {
     icon: "/favicon.ico",
   },
