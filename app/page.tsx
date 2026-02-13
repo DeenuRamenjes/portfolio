@@ -1,23 +1,21 @@
 "use client";
 
 import { useState } from "react";
-import dynamic from "next/dynamic";
 import PillNav from "@/components/PillNav";
 import { Hero } from "@/components/sections/hero";
+import { About } from "@/components/sections/about";
+import { Projects } from "@/components/sections/projects";
+import { Skills } from "@/components/sections/skills";
+import { Experience } from "@/components/sections/experience";
+import { Education } from "@/components/sections/education";
+import { Contact } from "@/components/sections/contact";
+import { Footer } from "@/components/footer";
 import { SectionWrapper } from "@/components/sections/section-wrapper";
 import { ScrollProgress } from "@/components/scroll-progress";
+import { BeyondTheCode } from "@/components/sections/beyond-code";
 import { Marquee } from "@/components/ui/marquee";
 import { SplashScreen } from "@/components/ui/splash-screen";
-
-// Lazy-load below-fold sections to reduce initial JS bundle for faster LCP
-const About = dynamic(() => import("@/components/sections/about").then(m => ({ default: m.About })));
-const Projects = dynamic(() => import("@/components/sections/projects").then(m => ({ default: m.Projects })));
-const Skills = dynamic(() => import("@/components/sections/skills").then(m => ({ default: m.Skills })));
-const Experience = dynamic(() => import("@/components/sections/experience").then(m => ({ default: m.Experience })));
-const Education = dynamic(() => import("@/components/sections/education").then(m => ({ default: m.Education })));
-const Contact = dynamic(() => import("@/components/sections/contact").then(m => ({ default: m.Contact })));
-const Footer = dynamic(() => import("@/components/footer").then(m => ({ default: m.Footer })));
-const BeyondTheCode = dynamic(() => import("@/components/sections/beyond-code").then(m => ({ default: m.BeyondTheCode })));
+import { LazySection } from "@/components/ui/lazy-section";
 
 // Module-level variable to track splash state across client-side navigations
 let hasShownSplash = false;
@@ -89,23 +87,41 @@ export default function Home() {
         <SectionWrapper id="about">
           <About />
         </SectionWrapper>
-        <Projects />
-        <SectionWrapper id="skills">
-          <Skills />
-        </SectionWrapper>
-        <SectionWrapper id="experience">
-          <Experience />
-        </SectionWrapper>
-        <SectionWrapper id="education">
-          <Education />
-        </SectionWrapper>
-        <SectionWrapper id="beyond-code">
-          <BeyondTheCode />
-        </SectionWrapper>
-        <SectionWrapper id="contact">
-          <Contact />
-        </SectionWrapper>
-        <Footer />
+
+        {/* Heavy below-fold sections are lazy-mounted to reduce TBT.
+            They only initialize (framer-motion/gsap/MagicBento) when
+            the user scrolls near them. */}
+        <LazySection minHeight="1200vh">
+          <Projects />
+        </LazySection>
+        <LazySection minHeight="80vh">
+          <SectionWrapper id="skills">
+            <Skills />
+          </SectionWrapper>
+        </LazySection>
+        <LazySection minHeight="80vh">
+          <SectionWrapper id="experience">
+            <Experience />
+          </SectionWrapper>
+        </LazySection>
+        <LazySection minHeight="60vh">
+          <SectionWrapper id="education">
+            <Education />
+          </SectionWrapper>
+        </LazySection>
+        <LazySection minHeight="60vh">
+          <SectionWrapper id="beyond-code">
+            <BeyondTheCode />
+          </SectionWrapper>
+        </LazySection>
+        <LazySection minHeight="60vh">
+          <SectionWrapper id="contact">
+            <Contact />
+          </SectionWrapper>
+        </LazySection>
+        <LazySection minHeight="20vh">
+          <Footer />
+        </LazySection>
       </main>
     </>
   );
