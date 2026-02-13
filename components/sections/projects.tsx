@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useScroll, useTransform, useSpring } from "framer-motion";
+import { motion, MotionValue, useScroll, useTransform, useSpring } from "framer-motion";
 import { ProjectCard } from "@/components/project-card";
 import { useRef } from "react";
 import { projects } from "@/lib/projects-data";
@@ -13,23 +13,21 @@ export function Projects() {
   });
 
   const smoothProgress = useSpring(scrollYProgress, {
-    damping: 40,
-    stiffness: 80,
-    restDelta: 0.001
+    damping: 50,
+    stiffness: 100,
+    restDelta: 0.0001
   });
 
-  // No horizontal x transform needed for 3D stack
-
   return (
-    <section id="projects" ref={container} className="relative h-[1200vh]">
-      <div className="sticky top-0 h-screen overflow-hidden flex items-center justify-center" style={{ perspective: "2000px" }}>
+    <section id="projects" ref={container} className="relative" style={{ height: `${projects.length * 300 + 100}vh` }}>
+      <div className="sticky top-0 h-screen overflow-hidden flex items-center justify-center" style={{ perspective: "1500px" }}>
 
-        {/* Layer E: Sticky Title */}
+        {/* Sticky Title */}
         <div className="absolute top-12 left-6 md:left-12 z-20 pointer-events-none">
           <motion.div
             style={{
-              opacity: useTransform(smoothProgress, [0, 0.05, 0.95, 1], [0, 1, 1, 0]),
-              y: useTransform(smoothProgress, [0, 0.05], [20, 0])
+              opacity: useTransform(smoothProgress, [0, 0.03, 0.95, 1], [0, 1, 1, 0]),
+              y: useTransform(smoothProgress, [0, 0.03], [20, 0])
             }}
           >
             <h2 className="text-2xl md:text-3xl font-heading font-black tracking-tighter text-white/20 uppercase">
@@ -38,7 +36,22 @@ export function Projects() {
           </motion.div>
         </div>
 
-        {/* Layer C: Stacked 3D Content */}
+        {/* Card Counter Dots */}
+        <div className="absolute top-12 right-6 md:right-12 z-20 pointer-events-none">
+          <motion.div
+            style={{
+              opacity: useTransform(smoothProgress, [0, 0.03, 0.95, 1], [0, 1, 1, 0]),
+            }}
+          >
+            <div className="flex items-center gap-3">
+              {projects.map((_, i) => (
+                <CardDot key={i} index={i} total={projects.length} progress={smoothProgress} />
+              ))}
+            </div>
+          </motion.div>
+        </div>
+
+        {/* Stacked Cards */}
         <div className="relative w-full h-full flex items-center justify-center" style={{ transformStyle: "preserve-3d" }}>
           {projects.map((project, index) => (
             <ProjectCard
@@ -52,15 +65,28 @@ export function Projects() {
             />
           ))}
         </div>
-
-        {/* Progress Bar Controller */}
-        {/* <div className="absolute bottom-12 left-6 right-6 md:left-12 md:right-12 h-[1px] bg-white/10 z-20 overflow-hidden">
-          <motion.div
-            style={{ scaleX: smoothProgress, transformOrigin: "left" }}
-            className="absolute inset-0 bg-white shadow-[0_0_15px_rgba(255,255,255,0.5)]"
-          />
-        </div> */}
       </div>
     </section>
+  );
+}
+
+function CardDot({ index, total, progress }: { index: number; total: number; progress: MotionValue<number> }) {
+  const step = 1 / total;
+  const mid = index * step + step * 0.5;
+
+  const isActive = useTransform(progress, (v: number) => {
+    const cardStart = index * step;
+    const cardEnd = (index + 1) * step;
+    return v >= cardStart && v < cardEnd;
+  });
+
+  const dotScale = useTransform(isActive, (active: boolean) => active ? 1.5 : 0.8);
+  const dotOpacity = useTransform(isActive, (active: boolean) => active ? 1 : 0.3);
+
+  return (
+    <motion.div
+      style={{ scale: dotScale, opacity: dotOpacity }}
+      className="w-2 h-2 rounded-full bg-white transition-colors duration-300"
+    />
   );
 }
