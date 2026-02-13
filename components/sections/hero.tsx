@@ -19,7 +19,7 @@ export function Hero() {
           {/* Consolidated Hero Text for SEO & Performance */}
           <h1 className="font-heading font-bold tracking-tight leading-[1.1]">
             <motion.div
-              initial="hidden"
+              initial={false}
               animate="visible"
               variants={heroTextLine}
               className="space-y-2"
@@ -75,9 +75,8 @@ export function Hero() {
 
           {/* Subtitle */}
           <motion.p
-            initial={{ opacity: 0, y: 20 }}
+            initial={false}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
             className="text-lg md:text-xl text-foreground/60 max-w-2xl pt-4"
           >
             Crafting High-Performance, User-Centric Applications
@@ -85,9 +84,8 @@ export function Hero() {
 
           {/* CTA Button */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={false}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
             className="pt-8"
           >
             <Button
