@@ -6,7 +6,7 @@ import { GlareHover } from "@/components/ui/glare-card";
 import Image from "next/image";
 
 export function About() {
-  const words = "Specializing in React, Next.js, and dynamic UI/UX, I design and build seamless digital experiences with smooth animations, real-time interactions, and optimized performance. Let's turn ideas into reality.".split(" ");
+  const words = "Full Stack Software Developer with hands-on experience designing and delivering schema-driven SaaS systems, real-time applications, and performance-optimized frontend architectures. Strong expertise in React, Next.js, Node.js, and MongoDB with scalable UI rendering systems. Focused on building production-ready systems with clean architecture, performance discipline, and maintainable design patterns.".split(" ");
 
   return (
     <div className="grid md:grid-cols-2 gap-12 md:gap-20 items-center">

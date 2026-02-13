@@ -1,10 +1,10 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
 import { projects, Project } from "@/lib/projects-data";
-import { ArrowLeft, ArrowUpRight } from "lucide-react";
-import { useEffect, useRef } from "react";
+import { ArrowLeft, ArrowUpRight, AlertCircle } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
 
 interface ProjectDetailContentProps {
     project: Project;
@@ -14,6 +14,16 @@ export function ProjectDetailContent({ project }: ProjectDetailContentProps) {
     const router = useRouter();
     const containerRef = useRef<HTMLDivElement>(null);
     const spotlightRef = useRef<HTMLDivElement>(null);
+    const [showNotification, setShowNotification] = useState(false);
+
+    const handleImageClick = () => {
+        if (project.liveUrl) {
+            window.open(project.liveUrl, "_blank");
+        } else {
+            setShowNotification(true);
+            setTimeout(() => setShowNotification(false), 3000);
+        }
+    };
 
     const { scrollYProgress } = useScroll({
         target: containerRef,
@@ -165,10 +175,10 @@ export function ProjectDetailContent({ project }: ProjectDetailContentProps) {
                             {/* Main Spotlight - Triggers Mission Reveal */}
                             <motion.div
                                 ref={spotlightRef}
-                                onClick={() => project.liveUrl && window.open(project.liveUrl, "_blank")}
+                                onClick={handleImageClick}
                                 style={{
                                     y: useTransform(scrollYProgress, [0.4, 1], [40, 0]),
-                                    cursor: project.liveUrl ? 'pointer' : 'default'
+                                    cursor: 'pointer'
                                 }}
                                 className="aspect-[16/10] w-full bg-zinc-900 border border-white/10 rounded-2xl overflow-hidden group relative"
                             >
@@ -191,10 +201,10 @@ export function ProjectDetailContent({ project }: ProjectDetailContentProps) {
                             {/* Secondary Grid */}
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16">
                                 <motion.div
-                                    onClick={() => project.liveUrl && window.open(project.liveUrl, "_blank")}
+                                    onClick={handleImageClick}
                                     style={{
                                         y: useTransform(scrollYProgress, [0.5, 1], [80, 0]),
-                                        cursor: project.liveUrl ? 'pointer' : 'default'
+                                        cursor: 'pointer'
                                     }}
                                     className="aspect-[4/5] bg-zinc-900 border border-white/5 rounded-2xl overflow-hidden relative group"
                                 >
@@ -214,10 +224,10 @@ export function ProjectDetailContent({ project }: ProjectDetailContentProps) {
                                     </div>
                                 </motion.div>
                                 <motion.div
-                                    onClick={() => project.liveUrl && window.open(project.liveUrl, "_blank")}
+                                    onClick={handleImageClick}
                                     style={{
                                         y: useTransform(scrollYProgress, [0.6, 1], [120, 0]),
-                                        cursor: project.liveUrl ? 'pointer' : 'default'
+                                        cursor: 'pointer'
                                     }}
                                     className="aspect-[4/5] md:aspect-[4/3] bg-zinc-900 border border-white/5 rounded-2xl overflow-hidden relative group"
                                 >
@@ -241,6 +251,21 @@ export function ProjectDetailContent({ project }: ProjectDetailContentProps) {
                     </div>
                 </div>
             </section>
+
+            {/* Notification */}
+            <AnimatePresence>
+                {showNotification && (
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: 20 }}
+                        className="fixed bottom-12 left-1/2 -translate-x-1/2 z-50 px-6 py-3 bg-[#050505]/90 border border-white/10 rounded-full backdrop-blur-md flex items-center gap-3 shadow-2xl"
+                    >
+                        <AlertCircle className="w-5 h-5 text-yellow-500" />
+                        <span className="text-sm font-medium text-white/90">This project is currently in development</span>
+                    </motion.div>
+                )}
+            </AnimatePresence>
 
             <style jsx>{`
                 .outline-text {
