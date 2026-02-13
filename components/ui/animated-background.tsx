@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 
 export function AnimatedBackground() {
     const [mounted, setMounted] = useState(false);
@@ -70,6 +70,12 @@ export function AnimatedBackground() {
 }
 
 function RandomOrb({ baseColor, initialPosition, size, delay = 0 }: { baseColor: string, initialPosition: any, size: string, delay?: number }) {
+    const animationValues = useMemo(() => ({
+        x: [0, Math.random() * 400 - 200, Math.random() * 400 - 200, 0],
+        y: [0, Math.random() * 400 - 200, Math.random() * 400 - 200, 0],
+        duration: 15 + Math.random() * 10
+    }), []);
+
     return (
         <motion.div
             className="absolute rounded-full blur-[100px] opacity-30"
@@ -80,13 +86,13 @@ function RandomOrb({ baseColor, initialPosition, size, delay = 0 }: { baseColor:
                 background: `radial-gradient(circle, ${baseColor} 0%, transparent 70%)`,
             }}
             animate={{
-                x: [0, Math.random() * 400 - 200, Math.random() * 400 - 200, 0],
-                y: [0, Math.random() * 400 - 200, Math.random() * 400 - 200, 0],
+                x: animationValues.x,
+                y: animationValues.y,
                 scale: [1, 1.2, 0.8, 1],
                 rotate: [0, 180, 360],
             }}
             transition={{
-                duration: 20 + Math.random() * 10,
+                duration: animationValues.duration,
                 repeat: Infinity,
                 repeatType: "reverse",
                 ease: "easeInOut",

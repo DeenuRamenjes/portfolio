@@ -67,31 +67,18 @@ export function SmoothScrollProvider({ children }: SmoothScrollProviderProps) {
     };
   }, []);
 
-  // Aggressive update on route change to prevent height ghosting
+  // Consolidatd update on route change to prevent height ghosting & reduce TBT
   useEffect(() => {
-    if (lenisRef.current) {
-      const timer1 = setTimeout(() => {
-        lenisRef.current?.resize();
-        ScrollTrigger.refresh();
-      }, 100);
+    if (!lenisRef.current) return;
 
-      const timer2 = setTimeout(() => {
-        lenisRef.current?.resize();
-        ScrollTrigger.refresh();
-        window.dispatchEvent(new Event('resize'));
-      }, 500);
+    // A single, slightly delayed refresh is usually enough once the new page layout settles
+    const timer = setTimeout(() => {
+      lenisRef.current?.resize();
+      ScrollTrigger.refresh();
+      window.dispatchEvent(new Event('resize'));
+    }, 400);
 
-      const timer3 = setTimeout(() => {
-        lenisRef.current?.resize();
-        ScrollTrigger.refresh();
-      }, 1200);
-
-      return () => {
-        clearTimeout(timer1);
-        clearTimeout(timer2);
-        clearTimeout(timer3);
-      };
-    }
+    return () => clearTimeout(timer);
   }, [pathname]);
 
   return <>{children}</>;

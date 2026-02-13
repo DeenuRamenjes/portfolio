@@ -63,7 +63,7 @@ export function ProjectCard({
         position: "absolute",
         zIndex: total - index,
       }}
-      className="relative w-[calc(100vw-32px)] md:w-[calc(950vw-90px)] lg:w-full max-w-7xl min-h-[500px] md:aspect-[21/9] will-change-transform"
+      className="relative w-[calc(100vw-32px)] md:w-[calc(100vw-90px)] lg:w-full max-w-7xl min-h-[500px] md:aspect-[21/9] will-change-transform"
     >
       <Card className="group relative w-full h-full overflow-hidden bg-zinc-900/40 backdrop-blur-3xl border-white/5 shadow-[0_50px_100px_rgba(0,0,0,0.8)] border flex flex-col md:flex-row">
 
