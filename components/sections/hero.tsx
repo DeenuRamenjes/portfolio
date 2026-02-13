@@ -16,61 +16,62 @@ export function Hero() {
       <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-12 py-32">
         <div className="space-y-6">
 
-          {/* Custom Hero Text Rendering */}
-          <motion.div
-            initial="hidden"
-            animate="visible"
-            variants={heroTextLine}
-            className="font-heading font-bold tracking-tight leading-[1.1]"
-          >
-            {/* Line 1 */}
-            <motion.h1
-              custom={0}
-              initial="visible"
+          {/* Consolidated Hero Text for SEO & Performance */}
+          <h1 className="font-heading font-bold tracking-tight leading-[1.1]">
+            <motion.div
+              initial="hidden"
+              animate="visible"
               variants={heroTextLine}
-              className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl"
+              className="space-y-2"
             >
-              <span className="text-foreground/80">Hi, I&apos;m </span>
-              <span className="bg-clip-text text-transparent bg-gradient-to-br from-[var(--accent-blue)] to-[var(--accent-purple)]">
-                M S Deenu Ramenjes
-              </span>
-            </motion.h1>
+              {/* Line 1 - The primary LCP element */}
+              <motion.div
+                custom={0}
+                variants={heroTextLine}
+                className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl"
+              >
+                <span className="text-foreground/80">Hi, I&apos;m </span>
+                <span className="bg-clip-text text-transparent bg-gradient-to-br from-[var(--accent-blue)] to-[var(--accent-purple)]">
+                  M S Deenu Ramenjes
+                </span>
+              </motion.div>
 
-            {/* Line 2 */}
-            <motion.h1
-              custom={1}
-              variants={heroTextLine}
-              className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl mt-2"
-            >
-              <ShinyText
-                text="a passionate"
-                speed={2}
-                delay={0.1}
-                color="#d1d5db"
-                shineColor="#ffffff"
-                spread={90}
-                direction="left"
-              />
-            </motion.h1>
-
-            {/* Line 3 */}
-            <motion.h1
-              custom={2}
-              variants={heroTextLine}
-              className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl mt-2 relative"
-            >
-              {/* Layout Placeholder to prevent CLS */}
-              <span className="invisible opacity-0 select-none">React Native Developer</span>
-              <div className="absolute top-0 left-0">
-                <Typewriter
-                  words={["Full-Stack Developer", "React Native Developer", "Prompt Engineer", "Front-End Developer"]}
-                  delay={2000}
-                  className="text-foreground"
-                  cursorClassName="bg-[var(--accent-blue)]"
+              {/* Line 2 */}
+              <motion.div
+                custom={1}
+                variants={heroTextLine}
+                className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl"
+              >
+                <ShinyText
+                  text="a passionate"
+                  speed={2}
+                  delay={0.1}
+                  color="#d1d5db"
+                  shineColor="#ffffff"
+                  spread={90}
+                  direction="left"
                 />
-              </div>
-            </motion.h1>
-          </motion.div>
+              </motion.div>
+
+              {/* Line 3 */}
+              <motion.div
+                custom={2}
+                variants={heroTextLine}
+                className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl relative"
+              >
+                {/* Layout Placeholder to prevent CLS */}
+                <span className="invisible opacity-0 select-none">React Native Developer</span>
+                <div className="absolute top-0 left-0">
+                  <Typewriter
+                    words={["Full-Stack Developer", "React Native Developer", "Prompt Engineer", "Front-End Developer"]}
+                    delay={2000}
+                    className="text-foreground"
+                    cursorClassName="bg-[var(--accent-blue)]"
+                  />
+                </div>
+              </motion.div>
+            </motion.div>
+          </h1>
 
           {/* Subtitle */}
           <motion.p

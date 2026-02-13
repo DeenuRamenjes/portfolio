@@ -24,33 +24,36 @@ export function Typewriter({
     const baseText = words[index];
 
     useEffect(() => {
-        // Reset for new word
-        const controls = animate(count, baseText.length, {
-            type: "tween",
-            duration: baseText.length * 0.1, // Typing speed
-            ease: "linear",
-            onUpdate: (latest) => {
-                setDisplayText(baseText.slice(0, Math.round(latest)));
-            },
-            onComplete: () => {
-                // Wait before deleting
-                setTimeout(() => {
-                    animate(count, 0, {
-                        type: "tween",
-                        duration: baseText.length * 0.05, // Deleting speed (faster)
-                        ease: "linear",
-                        onUpdate: (latest) => {
-                            setDisplayText(baseText.slice(0, Math.round(latest)));
-                        },
-                        onComplete: () => {
-                            setIndex((prev) => (prev + 1) % words.length);
-                        },
-                    });
-                }, delay);
-            },
-        });
+        // Defer start to save TBT during hydration
+        const startTimeout = setTimeout(() => {
+            const controls = animate(count, baseText.length, {
+                type: "tween",
+                duration: baseText.length * 0.1,
+                ease: "linear",
+                onUpdate: (latest) => {
+                    setDisplayText(baseText.slice(0, Math.round(latest)));
+                },
+                onComplete: () => {
+                    setTimeout(() => {
+                        animate(count, 0, {
+                            type: "tween",
+                            duration: baseText.length * 0.05,
+                            ease: "linear",
+                            onUpdate: (latest) => {
+                                setDisplayText(baseText.slice(0, Math.round(latest)));
+                            },
+                            onComplete: () => {
+                                setIndex((prev) => (prev + 1) % words.length);
+                            },
+                        });
+                    }, delay);
+                },
+            });
 
-        return () => controls.stop();
+            return () => controls.stop();
+        }, 1000); // 1s deferral
+
+        return () => clearTimeout(startTimeout);
     }, [index, baseText, delay, count, words.length]);
 
     return (
