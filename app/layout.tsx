@@ -21,17 +21,20 @@ const spaceGrotesk = Space_Grotesk({
 });
 
 export const metadata: Metadata = {
-  title: "Deenu Ramenjes M S",
-  description: "Deenu Ramenjes M S Portfolio",
-  viewport: {
-    width: "device-width",
-    initialScale: 1,
-    maximumScale: 5,
+  metadataBase: new URL("https://www.deenu.fun"),
+  title: {
+    default: "Deenu Ramenjes M S",
+    template: "%s | Deenu Ramenjes",
+  },
+  description: "Software Developer specializing in Next.js, React, and scalable web applications.",
+  icons: {
+    icon: "/favicon.ico",
   },
   verification: {
     google: "google83208983fb394399",
   },
 };
+
 
 export default function RootLayout({
   children,
