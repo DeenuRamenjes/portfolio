@@ -12,22 +12,22 @@ export interface Project {
 }
 
 export const projects: Project[] = [
-    {
-        slug: "qbuilder",
-        title: "Qbuilder",
-        description: "A high-performance, schema-driven website builder with drag-and-drop editing, AI-assisted design, and multi-tenant SaaS architecture.",
-        longDescription: [
-            "Built a visual website builder using Next.js 15 with schema-based rendering.",
-            "Implemented drag-and-drop editing, dynamic property panels, and animated UI.",
-            "SaaS & Multi-Tenancy Concepts.",
-            "Designed multi-tenant SaaS routing and reusable template systems."
-        ],
-        technologies: ["Next.js", "Schema-Based Rendering", "Drag-and-Drop", "Multi-Tenant SaaS", "Template Systems"],
-        year: "2026",
-        role: "Full Stack Developer",
-        images: ["/assets/qbuilder1.webp", "/assets/qbuilder2.webp", "/assets/qbuilder3.webp"],
-        status: "In Development"
-    },
+    // {
+    //     slug: "qbuilder",
+    //     title: "Qbuilder",
+    //     description: "A high-performance, schema-driven website builder with drag-and-drop editing, AI-assisted design, and multi-tenant SaaS architecture.",
+    //     longDescription: [
+    //         "Built a visual website builder using Next.js 15 with schema-based rendering.",
+    //         "Implemented drag-and-drop editing, dynamic property panels, and animated UI.",
+    //         "SaaS & Multi-Tenancy Concepts.",
+    //         "Designed multi-tenant SaaS routing and reusable template systems."
+    //     ],
+    //     technologies: ["Next.js", "Schema-Based Rendering", "Drag-and-Drop", "Multi-Tenant SaaS", "Template Systems"],
+    //     year: "2026",
+    //     role: "Full Stack Developer",
+    //     images: ["/assets/qbuilder1.webp", "/assets/qbuilder2.webp", "/assets/qbuilder3.webp"],
+    //     status: "In Development"
+    // },
     {
         slug: "quantzi-website",
         title: "Quantzi",
