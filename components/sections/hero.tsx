@@ -9,6 +9,16 @@ import { Typewriter } from "@/components/ui/typewriter";
 
 
 export function Hero() {
+
+    const handleDownload = () => {
+      const link = document.createElement("a");
+      link.href = "/assets/resume.pdf";
+      link.download = "Deenu-Ramenjes-Resume.pdf";
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    };
+
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
 
@@ -90,7 +100,7 @@ export function Hero() {
           >
             <Button
               size="lg"
-              className="relative group cursor-pointer overflow-hidden bg-foreground text-background hover:bg-foreground/90 transition-all duration-300"
+              className="relative mr-4 group cursor-pointer overflow-hidden bg-transparent text-white border hover:bg-foreground hover:text-black transition-all duration-300"
               onClick={() => {
                 const element = document.querySelector("#projects");
                 element?.scrollIntoView({ behavior: "smooth" });
@@ -104,6 +114,16 @@ export function Hero() {
                 transition={{ duration: 0.3 }}
               />
             </Button>
+         <Button
+            size="lg"
+            onClick={handleDownload}
+            className="relative group cursor-pointer overflow-hidden bg-foreground text-background hover:bg-foreground/90 transition-all duration-300"
+            aria-label="Download Resume"
+          >
+            <span className="relative z-10">Resume</span>
+
+          
+          </Button>
           </motion.div>
         </div>
 

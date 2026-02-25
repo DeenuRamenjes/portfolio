@@ -8,7 +8,17 @@ const heading = "Let's Create Something Amazing Together".split(" ");
 
 export function Contact() {
 
+  const handleDownload = () => {
+      const link = document.createElement("a");
+      link.href = "/assets/resume.pdf";
+      link.download = "Deenu-Ramenjes-Resume.pdf";
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+  };
+
   return (
+    
     <div className="text-center max-w-4xl mx-auto">
       <motion.div
         variants={staggerContainer}
@@ -55,7 +65,7 @@ export function Contact() {
         >
           <Button
             size="lg"
-            className="relative group cursor-pointer overflow-hidden bg-foreground text-background hover:bg-foreground/90"
+            className="relative py-3 group cursor-pointer overflow-hidden bg-foreground text-background hover:bg-foreground/90"
           >
             <span className="relative z-10">Send Email</span>
             <motion.div
@@ -68,14 +78,14 @@ export function Contact() {
         </motion.a>
 
         <motion.a
-          href="https://drive.usercontent.google.com/u/2/uc?id=11a_xUOe4xACB4hgG940s8fb2H9JuQOu0&export=download"
+          onClick={handleDownload}
           whileHover={{ scale: 1.05, y: -2 }}
           transition={{ duration: 0.2 }}
         >
           <Button
             size="lg"
             variant="outline"
-            className="border-white/20 cursor-pointer hover:border-white/40 hover:bg-white/5"
+            className="border-white/20 cursor-pointer py-3 hover:border-white/40 hover:bg-white/5"
           >
             Download Resume
           </Button>

@@ -30,7 +30,7 @@ const PillNav: React.FC<PillNavProps> = ({
   ease = 'power3.easeOut',
   baseColor = '#fff',
   pillColor = '#060010',
-  hoveredPillTextColor = '#060010',
+  hoveredPillTextColor = '#000000',
   pillTextColor,
   onMobileMenuClick,
   initialLoadAnimation = true
@@ -290,7 +290,8 @@ const PillNav: React.FC<PillNavProps> = ({
     ['--nav-h']: '42px',
     ['--logo']: '36px',
     ['--pill-pad-x']: '18px',
-    ['--pill-gap']: '3px'
+    ['--pill-gap']: '3px',
+    ['--hover-gradient']: `radial-gradient(var(--accent-blue), var(--accent-purple))`
   } as React.CSSProperties;
 
   return (
@@ -306,7 +307,7 @@ const PillNav: React.FC<PillNavProps> = ({
           className="relative items-center rounded-full hidden md:flex ml-2"
           style={{
             height: 'var(--nav-h)',
-            background: 'var(--base, #000)'
+            // background: 'var(--base, #000)'
           }}
         >
           <ul
@@ -329,7 +330,7 @@ const PillNav: React.FC<PillNavProps> = ({
                   <span
                     className="hover-circle absolute left-1/2 bottom-0 rounded-full z-[1] block pointer-events-none"
                     style={{
-                      background: 'var(--base, #000)',
+                      background: 'var(--hover-gradient)',
                       willChange: 'transform'
                     }}
                     aria-hidden="true"
@@ -366,10 +367,10 @@ const PillNav: React.FC<PillNavProps> = ({
               );
 
               const basePillClasses =
-                'relative overflow-hidden inline-flex items-center justify-center h-full no-underline rounded-full box-border font-semibold text-[16px] leading-[0] uppercase tracking-[0.2px] whitespace-nowrap cursor-pointer px-0';
+                'relative overflow-hidden inline-flex items-center justify-center h-full no-underline rounded-lg box-border font-semibold text-[16px] leading-[0] uppercase tracking-[0.2px] whitespace-nowrap cursor-pointer px-0';
 
               return (
-                <li key={item.href} role="none" className="flex h-full">
+                <li key={item.href} role="none" className="flex h-full bg-transparent">
                   {isRouterLink(item.href) ? (
                     <Link
                       role="menuitem"

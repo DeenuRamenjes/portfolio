@@ -16,6 +16,7 @@ import { BeyondTheCode } from "@/components/sections/beyond-code";
 import { Marquee } from "@/components/ui/marquee";
 import { SplashScreen } from "@/components/ui/splash-screen";
 import { LazySection } from "@/components/ui/lazy-section";
+import Image from "next/image";
 
 // Module-level variable to track splash state across client-side navigations
 let hasShownSplash = false;
@@ -52,9 +53,14 @@ export default function Home() {
         <ScrollProgress />
         <div className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between md:justify-center px-6 py-6 md:px-12 pointer-events-none">
           {/* Logo */}
-          <h1 className="text-2xl font-bold tracking-tight text-foreground transition-transform hover:scale-105 cursor-pointer pointer-events-auto md:absolute md:left-12 md:top-6">
-            Portfolio
-          </h1>
+          <Image 
+            height={35} 
+            width={35} 
+            alt="Portfolio" 
+            src={"assets/d.png"} 
+            className="text-2xl font-bold tracking-tight text-foreground transition-transform hover:scale-105 cursor-pointer pointer-events-auto md:absolute md:left-12 md:top-6"
+            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+          />
 
           {/* Pill Nav */}
           <div className="pointer-events-auto">
@@ -67,7 +73,7 @@ export default function Home() {
               baseColor="#0a0a0a"
               pillColor="#ffffff"
               pillTextColor="#0a0a0a"
-              hoveredPillTextColor="#ffffff"
+              hoveredPillTextColor="#000000"
             />
           </div>
         </div>
@@ -87,10 +93,6 @@ export default function Home() {
         <SectionWrapper id="about">
           <About />
         </SectionWrapper>
-
-        {/* Heavy below-fold sections are lazy-mounted to reduce TBT.
-            They only initialize (framer-motion/gsap/MagicBento) when
-            the user scrolls near them. */}
         <LazySection minHeight="1200vh">
           <Projects />
         </LazySection>
